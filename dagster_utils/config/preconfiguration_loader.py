@@ -5,7 +5,7 @@ import warnings
 
 import yaml
 
-from dagster_utils.support.typing import DagsterConfigDict
+from dagster_utils.typing import DagsterConfigDict
 
 
 @dataclass

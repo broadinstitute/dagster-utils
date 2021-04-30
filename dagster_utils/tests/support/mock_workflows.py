@@ -5,7 +5,7 @@ from typing import Any
 from argo.workflows.client.models import V1alpha1Workflow, V1ObjectMeta, V1alpha1WorkflowSpec, V1alpha1Arguments, V1alpha1Parameter, \
     V1alpha1WorkflowStatus
 
-from hca_orchestration.contrib.argo_workflows import ExtendedArgoWorkflow
+from dagster_utils.contrib.argo_workflows import ExtendedArgoWorkflow
 
 # the argo workflows api produces this abominable nested set of classes for each workflow,
 # so we build one from simple params here to keep our tests lean

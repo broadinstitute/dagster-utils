@@ -2,10 +2,10 @@
 Types and type annotations useful for Dagster applications.
 """
 
-from dagster import InputDefinition
+from dagster import HookContext, InputDefinition
 from dagster.config import ConfigType as DagsterConfigType
 
-from typing import Literal, Protocol, TypedDict, Union
+from typing import Callable, Literal, Protocol, TypedDict, Union
 
 
 # dict of config settings for a given instance of a dagster object
@@ -26,6 +26,8 @@ DagsterConfigDict = dict[
 
 # dict representing how a solid can be configured
 DagsterObjectConfigSchema = dict[str, DagsterConfigType]
+
+DagsterHookFunction = Callable[[HookContext], None]
 
 
 # a partial delineation of the config for a Dagster solid.

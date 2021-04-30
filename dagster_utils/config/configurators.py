@@ -1,16 +1,26 @@
 import os
-from typing import Callable, Optional
+from typing import Optional, Protocol
 
 from dagster import configured, Noneable
 from dagster.core.definitions.configurable import ConfigurableDefinition
 
-from dagster_utils.support.typing import DagsterConfigDict, DagsterSolidConfigSchema, LocatablePackage
+from dagster_utils.typing import DagsterConfigDict, DagsterObjectConfigSchema, LocatablePackage
 from dagster_utils.config.preconfiguration_loader import PreconfigurationLoader
+
+
+class PreconfiguratorFunction(Protocol):
+    def __call__(
+        self,
+        dagster_object: ConfigurableDefinition,
+        mode_name: str,
+        additional_schema: DagsterObjectConfigSchema = {},
+        subdirectory: Optional[str] = None,
+    ) -> ConfigurableDefinition: ...
 
 
 def configurator_aimed_at(
     base_config_package: LocatablePackage
-) -> Callable[[ConfigurableDefinition, str, DagsterSolidConfigSchema, Optional[str]], ConfigurableDefinition]:
+) -> PreconfiguratorFunction:
     """
     Generates a configuration function that loads config from YAML within the specified package.
     See the inner function for details on how it works.
@@ -25,7 +35,7 @@ def configurator_aimed_at(
     def preconfigure_for_mode(
         dagster_object: ConfigurableDefinition,
         mode_name: str,
-        additional_schema: DagsterSolidConfigSchema = {},
+        additional_schema: DagsterObjectConfigSchema = {},
         subdirectory: Optional[str] = None,
     ) -> ConfigurableDefinition:
         """

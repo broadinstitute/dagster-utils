@@ -16,7 +16,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
     def test_validated_config_raises_if_missing_keys(self):
         loader = PreconfigurationLoader(
             name="foo",
-            subdirectory="bar/baz",
+            config_file_directory="bar/baz",
             optional_keys=set(),
             required_keys={'a', 'b', 'c'}
         )
@@ -27,7 +27,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
     def test_validated_config_does_not_raise_if_missing_optional_keys(self):
         loader = PreconfigurationLoader(
             name="foo",
-            subdirectory="bar/baz",
+            config_file_directory="bar/baz",
             optional_keys={'b', 'c'},
             required_keys={'a'},
         )
@@ -39,7 +39,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
     def test_validated_config_warns_and_cuts_if_extra_keys(self):
         loader = PreconfigurationLoader(
             name="foo",
-            subdirectory="bar/baz",
+            config_file_directory="bar/baz",
             optional_keys=set(),
             required_keys={'a'},
         )
@@ -60,7 +60,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
     def test_validated_config_returns_unaltered_if_all_keys_present(self):
         loader = PreconfigurationLoader(
             name="foo",
-            subdirectory="bar.baz",
+            config_file_directory="bar/baz",
             optional_keys=set(),
             required_keys={'a', 'b'},
         )
@@ -73,7 +73,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
         with TemporaryDirectory(dir=self.config_package_dir) as temp_dir:
             loader = PreconfigurationLoader(
                 name="foo",
-                subdirectory=os.path.basename(temp_dir),
+                config_file_directory=temp_dir,
                 optional_keys=set(),
                 required_keys=set()
             )
@@ -84,7 +84,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
         with TemporaryDirectory(dir=self.config_package_dir) as temp_dir:
             loader = PreconfigurationLoader(
                 name="foo",
-                subdirectory=os.path.basename(temp_dir),
+                config_file_directory=temp_dir,
                 optional_keys=set(),
                 required_keys={'x'},
             )
@@ -98,7 +98,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
         with TemporaryDirectory(dir=self.config_package_dir) as temp_dir:
             loader = PreconfigurationLoader(
                 name="foo",
-                subdirectory=os.path.basename(temp_dir),
+                config_file_directory=temp_dir,
                 optional_keys=set(),
                 required_keys={'x', 'y'}
             )
@@ -115,7 +115,7 @@ class PreconfigurationLoaderTestCase(unittest.TestCase):
         with TemporaryDirectory(dir=self.config_package_dir) as temp_dir:
             loader = PreconfigurationLoader(
                 name="foo",
-                subdirectory=os.path.basename(temp_dir),
+                config_file_directory=temp_dir,
                 optional_keys=set(),
                 required_keys={'x', 'y'}
             )

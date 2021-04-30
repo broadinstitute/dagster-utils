@@ -1,6 +1,7 @@
 # Classes with more permissive __eq__ functions for use as argument matchers for mocks.
 
 import re
+from typing import Any
 
 
 # Matches if a mock was called with a string containing the given substring
@@ -36,7 +37,7 @@ class StringMatchingRegex(str):
     def __repr__(self) -> str:
         return f"(string matching regex '{super().__str__()}')"
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return super().__hash__()
 
 
@@ -55,7 +56,7 @@ class ObjectOfType:
 # lets us do partial matching on objects without needing to make assertions about every attribute,
 # e.g. "any Book with title='abc'": ObjectWithAttributes(Book, title='abc')
 class ObjectWithAttributes(ObjectOfType):
-    def __init__(self, expected_type: type, **expected_attributes):
+    def __init__(self, expected_type: type, **expected_attributes: Any):
         super().__init__(expected_type)
         self.attributes_dict = expected_attributes
 

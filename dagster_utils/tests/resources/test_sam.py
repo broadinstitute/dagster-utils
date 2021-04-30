@@ -4,11 +4,12 @@ from unittest.mock import MagicMock, patch
 from dagster_utils.resources.sam import sam_client, Sam
 from dagster_utils.testing.resources import initialize_resource
 from dagster_utils.testing.matchers import StringEndingWith
+from dagster_utils.typing import DagsterConfigDict
 
 
 class SamResourceTestCase(unittest.TestCase):
     def setUp(self):
-        self.dummy_config = {'api_url': 'https://zombo.com.fake'}
+        self.dummy_config: DagsterConfigDict = {'api_url': 'https://zombo.com.fake'}
 
     def test_resource_can_be_initialized_without_extra_config(self):
         with initialize_resource(sam_client, config=self.dummy_config) as client_instance:
