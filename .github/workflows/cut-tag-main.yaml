@@ -1,0 +1,43 @@
+# This workflow will cut a new pre-release version every time a commit is pushed to main.
+# Pre-release version increments work like this:
+#   1.2.3 -> 1.2.4-alpha.0
+#   1.2.4-alpha.0 -> 1.2.4-alpha.1
+
+name: Release New Pre-Release Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cut-prerelease:
+    # this job creates a new commit to bump the library version. this if statement prevents that
+    # from causing an infinite loop.
+    if: github.event.push.pusher.name != "Release Cutter"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.1.1
+
+    - name: Increment pre-release version
+      run: poetry version prerelease
+
+    - name: Fetch version after bump
+      id: current-version
+      run: echo "::set-output name=version::$(poetry version -s)"
+
+    - name: Commit version increment
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "[AUTOMATED] Increment pre-release version"
+        commit_user_name: Release Cutter
+        branch: main
+        tagging_message: ${{ steps.current-version.outputs.version }}

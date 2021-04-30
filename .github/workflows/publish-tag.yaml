@@ -1,0 +1,60 @@
+name: Publish New Tag To Artifactory
+
+on: create
+
+jobs:
+  publish-release:
+    # the create event also includes branches, so we make sure we're only publishing for tags here
+    if: github.event.create.ref_type == "tag"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.1.1
+
+    - name: Check current recorded version in Poetry
+      id: current-version
+      run: echo "::set-output name=version::$(poetry version -s)"
+
+    - name: Update pyproject version
+      run: poetry version ${{ github.event.create.ref }}
+      if: github.event.create.ref != steps.current-version.outputs.version
+
+    - name: Commit version sync
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "[AUTOMATED] Sync Poetry version with new tag"
+        commit_user_name: Release Cutter
+        branch: main
+      if: github.event.create.ref != steps.current-version.outputs.version
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-poetry
+      with:
+        path: ~/.cache/pypoetry
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      id: dependencies
+      run: poetry install
+
+    - name: Build library artifacts
+      run: poetry build
+
+    - name: Configure Poetry to authenticate with Artifactory
+      run: poetry config http-basic.broad-artifactory ${{ env.ARTIFACTORY_USER }} ${{ env.ARTIFACTORY_PASSWORD }}
+
+    - name: Push the library to Artifactory
+      run: poetry publish -r broad-artifactory
