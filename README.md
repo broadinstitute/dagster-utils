@@ -15,7 +15,9 @@ This library is versioned semantically.
 
 Whenever a new change is merged to master, our CI will automatically cut a new prerelease version and publish it to Artifactory.
 
-To release a new version, determine what type of version increase your changes constitute (see the above guide) and create a new tag for that version (do not include a `v` in the version number) in this repository. An action will automatically trigger to publish this new version to Artifactory and update our library version to match.
+To release a new version, determine what type of version increase your changes constitute (see the above guide) and do the following:
+* Open a PR for the new version with **[RELEASE]** (case sensitive) at the start of the PR title. This PR should do nothing but update the changelog to include a header for the new version number (including its date of release) that covers all changes being released in the new version. Make sure to leave the "Pending Release" header in place.
+* Once you've merged that PR, [create a new tag](https://github.com/broadinstitute/dagster-utils/releases/new) for the new version (do not include a `v` in the version number). An action will automatically trigger to publish this new version to Artifactory and update our library version to match.
 
 ## How to use this library
 
