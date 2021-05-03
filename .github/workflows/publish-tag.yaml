@@ -29,7 +29,7 @@ jobs:
     - name: Commit version sync
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: "[AUTOMATED] Sync Poetry version with new tag"
+        commit_message: "[RELEASE] [AUTOMATED] Sync Poetry version with new tag"
         commit_user_name: Release Cutter
         branch: main
       if: github.event.create.ref != steps.current-version.outputs.version
