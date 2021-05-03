@@ -23,12 +23,14 @@ This library is hosted on the [Broad Artifactory](https://broadinstitute.jfrog.i
 
 Credentials to authenticate to the Broad Artifactory instance are located in Vault under `secret/dsp/accts/artifactory/dsdejenkins`. Note that there's no way to configure Poetry with credentials in its config file other than to hardcode them in plain text. Instead of committing a plaintext password to your repository, you'll need to either:
 
-* include a specific command in your actions to tell Poetry to use a given credential set: ```bash
+* include a specific command in your actions to tell Poetry to use a given credential set:
+```bash
 # e.g. if you named your source "broad-artifactory" under the [[tool.poetry.source]] header
 poetry config http-basic.broad-artifactory [interpolated username] [interpolated password]
 ```
-* specify the credentials using [environment variables](https://python-poetry.org/docs/configuration/#using-environment-variables): ```bash
+* specify the credentials using [environment variables](https://python-poetry.org/docs/configuration/#using-environment-variables):
+```bash
 # e.g. for "broad-artifactory"
-export POETRY_HTTP_BASIC_BROAD_ARTIFACTORY_USERNAME=secret_user
-export POETRY_HTTP_BASIC_BROAD_ARTIFACTORY_PASSWORD=secret_pass
+export POETRY_HTTP_BASIC_BROAD_ARTIFACTORY_USERNAME=secret_user_goes_here
+export POETRY_HTTP_BASIC_BROAD_ARTIFACTORY_PASSWORD=secret_pass_goes_here
 ```
