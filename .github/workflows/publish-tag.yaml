@@ -53,8 +53,5 @@ jobs:
     - name: Build library artifacts
       run: poetry build
 
-    - name: Configure Poetry to authenticate with Artifactory
-      run: poetry config http-basic.broad-artifactory ${{ env.ARTIFACTORY_USER }} ${{ env.ARTIFACTORY_PASSWORD }}
-
     - name: Push the library to Artifactory
-      run: poetry publish -r broad-artifactory
+      run: poetry publish -r broad-artifactory --username ${{ env.ARTIFACTORY_USER }} --password ${{ env.ARTIFACTORY_PASSWORD }}
