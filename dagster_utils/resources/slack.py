@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from typing import Callable, Literal
 
 import slack
-from dagster import configured, DagsterLogManager, failure_hook, HookContext, HookDefinition,\
+from dagster import DagsterLogManager, failure_hook, HookContext, HookDefinition,\
     resource, String, StringSource, success_hook
 from dagster.core.execution.context.init import InitResourceContext
 
-from dagster_utils.typing import DagsterConfigDict, DagsterHookFunction
+from dagster_utils.typing import DagsterHookFunction
 
 SlackMessageGenerator = Callable[[HookContext], str]
 
@@ -37,23 +37,11 @@ class LiveSlackClient:
     'channel': String,
     'token': StringSource,
 })
-def untokened_live_slack_client(init_context: InitResourceContext) -> LiveSlackClient:
+def live_slack_client(init_context: InitResourceContext) -> LiveSlackClient:
     return LiveSlackClient(
         slack.WebClient(init_context.resource_config['token']),
         init_context.resource_config['channel'],
     )
-
-
-# this can't be fully configured using preconfigure_for_mode, since SLACK_TOKEN is a secret
-@configured(untokened_live_slack_client, {'channel': String})
-def live_slack_client(config: DagsterConfigDict) -> DagsterConfigDict:
-    return {
-        'token': {'env': 'SLACK_TOKEN'},
-        **config,
-    }
-
-
-live_slack_client.__name__ = 'live_slack_client'
 
 
 def slack_hook(
