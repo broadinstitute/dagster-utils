@@ -4,15 +4,13 @@ A collection of common utilities used by the Monster team to develop Dagster pip
 
 ## How to use this library
 
-This library is hosted on the [Broad Artifactory](https://broadinstitute.jfrog.io/). To configure Poetry to check that repository for packages, follow the instructions on private repositories [in their docs](https://python-poetry.org/docs/repositories/#install-dependencies-from-a-private-repository). Once you've configured the Artifactory as a repository, you can reference this package as `dagster_utils`, e.g. for Poetry:
+This library is hosted on PyPI](https://pypi.org/) and will work with most Python package managers out of the box. You can reference this package as `dagster_utils`, e.g. for Poetry:
 
 ```
 # pyproject.toml
 [tool.poetry.dependencies]
 dagster_utils = "^0.1.0"
 ```
-
-No authentication is required to pull packages from Artifactory.
 
 ## Versioning
 
@@ -34,6 +32,4 @@ When describing changes made in a commit message, we want to be more thorough th
 
 ### Releasing a new version
 
-Whenever a new change is merged to master, our CI will automatically cut a new prerelease version and publish it to Artifactory.
-
-To release a new version, determine what type of version increase your changes constitute (see the above guide) and [create a new tag](https://github.com/broadinstitute/dagster-utils/releases/new) for the new version (do not include a `v` in the version number). An action will automatically trigger to publish this new version to Artifactory and update our library version to match.
+To release a new version, determine what type of version increase your changes constitute (see the above guide) and update the version listed in `pyproject.toml` accordingly. Poetry has several [version bump commands](https://python-poetry.org/docs/cli/#version) to help with this. You can update the version in a dedicated PR or as part of another change. When a PR that updates the version number lands on master, an action will run to create a new tag for that version number, followed by cutting a Git release and publishing the new version to PyPI.

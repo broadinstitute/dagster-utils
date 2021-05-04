@@ -1,5 +1,0 @@
-# config for performing actions with poetry
-
-[repositories]
-[repositories.broad-artifactory]
-url = "https://broadinstitute.jfrog.io/"

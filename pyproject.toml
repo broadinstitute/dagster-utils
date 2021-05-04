@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "dagster_utils"
-
-# the version is managed by our github actions - do not change it manually.
-# see the readme for info on releasing new versions.
-version = "0.1.0"
+license = "BSD-3-Clause"
+readme = "README.md"
+repository = "https://github.com/broadinstitute/dagster-utils"
+version = "0.1.2"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Steve Pletcher <spletche@broadinstitute.org>"]
@@ -27,6 +27,9 @@ flake8 = "^3.8.4"
 mypy = "^0.812"
 pre-commit = "^2.11.0"
 pytest = "^6.2.1"
+
+[tool.poetry.urls]
+"Release Info" = "https://github.com/broadinstitute/dagster-utils/releases"
 
 [build-system]
 requires = ["poetry-core=^1.1.5"]
