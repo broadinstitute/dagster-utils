@@ -6,10 +6,11 @@
 
 name: Release New Pre-Release Version
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
+on: [push]
 
 jobs:
   cut-prerelease:
@@ -22,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        persist-credntials: false
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
