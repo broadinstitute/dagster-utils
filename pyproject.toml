@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "dagster_utils"
+
+# the version is managed by our github actions - do not change it manually.
+# see the readme for info on releasing new versions.
+version = "0.1.0"
+
+description = "Common utilities and objects for building Dagster pipelines"
+authors = ["Steve Pletcher <spletche@broadinstitute.org>"]
+
+[tool.poetry.dependencies]
+# [2021-05-03]
+# We're locked out of using python 3.10 because the BigQuery library doesn't support it.
+# I'd expect this to change relatively soon after release, so check back occasionally.
+python = ">=3.9,<3.10"
+dagster = "^0.11.6"
+google-cloud-storage = "^1.38.0"
+PyYAML = "^5.4.1"
+google-cloud-bigquery = "^2.15.0"
+slackclient = "^2.9.3"
+argo-workflows = "^5.0.0"
+data-repo-client = "^1.64.0"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.5"
+flake8 = "^3.8.4"
+mypy = "^0.812"
+pre-commit = "^2.11.0"
+pytest = "^6.2.1"
+
+[build-system]
+requires = ["poetry-core=^1.1.5"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.autopep8]
+aggressive = 1
+exclude = ".pytest_cache,__pycache__"
+max_line_length = 120
