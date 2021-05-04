@@ -1,7 +1,8 @@
 name: Publish New Tag To Artifactory
 
 on:
-  push: [tags]
+  push:
+    tags: '*'
 
 jobs:
   publish-release:
@@ -50,8 +51,8 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         files: |
-          dagster_utils-*.tar.gz
-          dagster_utils-*.whl
+          dist/dagster_utils-*.tar.gz
+          dist/dagster_utils-*.whl
 
     - name: Push the library to Artifactory
       run: poetry publish -r broad-artifactory --username ${{ env.ARTIFACTORY_USER }} --password ${{ env.ARTIFACTORY_PASSWORD }}
