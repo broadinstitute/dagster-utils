@@ -1,9 +1,7 @@
 [tool.poetry]
 name = "dagster_utils"
 
-# the version is managed by our github actions - do not change it manually.
-# see the readme for info on releasing new versions.
-version = "0.1.0"
+version = "0.1.1"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Steve Pletcher <spletche@broadinstitute.org>"]
