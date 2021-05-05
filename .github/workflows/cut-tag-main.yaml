@@ -36,4 +36,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CUSTOM_TAG: ${{ steps.current-version.outputs.version }}
+        RELEASE_BRANCHES: main
+
       if: steps.current-version.outputs.version != steps.latest-release.outputs.release
