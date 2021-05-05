@@ -1,8 +1,8 @@
 name: Publish New Tag To Github and PyPI
 
 on:
-  push:
-    tags: '*'
+  create:
+    types: [tag]
 
 jobs:
   publish-release:
@@ -24,7 +24,7 @@ jobs:
 
     - name: Blow up if version does not match tag
       run: exit 1
-      if: github.event.ref != format('refs/tags/{0}', steps.current-version.outputs.version)
+      if: github.event.ref != steps.current-version.outputs.version
 
     - name: Cache dependencies
       uses: actions/cache@v2
