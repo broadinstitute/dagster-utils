@@ -2,10 +2,10 @@ name: Publish New Tag To Github and PyPI
 
 on:
   create:
-    types: [tag]
 
 jobs:
   publish-release:
+    if: github.event.ref_type == 'tag'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
