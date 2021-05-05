@@ -1,4 +1,4 @@
-name: Publish New Tag To Artifactory
+name: Publish New Tag To Github and PyPI
 
 on:
   push:
@@ -49,11 +49,10 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        title: "Version ${{ steps.current-version.outputs.version }}"
         prerelease: false
         files: |
-          dist/dagster_utils-*.tar.gz
-          dist/dagster_utils-*.whl
+          dist/broad_dagster_utils-*.tar.gz
+          dist/broad_dagster_utils-*.whl
 
     - name: Push the library to PyPI
       run: poetry publish

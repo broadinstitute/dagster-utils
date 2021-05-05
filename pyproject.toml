@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dagster_utils"
+name = "broad_dagster_utils"
 license = "BSD-3-Clause"
 readme = "README.md"
 repository = "https://github.com/broadinstitute/dagster-utils"
@@ -7,6 +7,10 @@ version = "0.1.2"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Steve Pletcher <spletche@broadinstitute.org>"]
+
+packages = [
+	{ include = "dagster_utils" }
+]
 
 [tool.poetry.dependencies]
 # [2021-05-03]

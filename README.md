@@ -4,12 +4,17 @@ A collection of common utilities used by the Monster team to develop Dagster pip
 
 ## How to use this library
 
-This library is hosted on PyPI](https://pypi.org/) and will work with most Python package managers out of the box. You can reference this package as `dagster_utils`, e.g. for Poetry:
+This library is hosted on PyPI](https://pypi.org/) and will work with most Python package managers out of the box. You can reference this package as `broad_dagster_utils`, e.g. for Poetry:
 
 ```
 # pyproject.toml
 [tool.poetry.dependencies]
-dagster_utils = "^0.1.0"
+broad_dagster_utils = "^0.1.0"
+```
+
+Note that, despite this name, you'll need to import the package as `dagster_utils`, e.g.:
+```python
+from dagster_utils.typing import DagsterConfigDict
 ```
 
 ## Versioning
