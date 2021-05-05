@@ -1,11 +1,11 @@
-name: Publish New Tag To Artifactory
+name: Publish New Tag To Github and PyPI
 
-on: create
+on:
+  push:
+    tags: '*'
 
 jobs:
   publish-release:
-    # the create event also includes branches, so we make sure we're only publishing for tags here
-    if: github.event.create.ref_type == "tag"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,17 +22,9 @@ jobs:
       id: current-version
       run: echo "::set-output name=version::$(poetry version -s)"
 
-    - name: Update pyproject version
-      run: poetry version ${{ github.event.create.ref }}
-      if: github.event.create.ref != steps.current-version.outputs.version
-
-    - name: Commit version sync
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "[RELEASE] [AUTOMATED] Sync Poetry version with new tag"
-        commit_user_name: Release Cutter
-        branch: main
-      if: github.event.create.ref != steps.current-version.outputs.version
+    - name: Blow up if version does not match tag
+      run: exit 1
+      if: github.event.ref != format('refs/tags/{0}', steps.current-version.outputs.version)
 
     - name: Cache dependencies
       uses: actions/cache@v2
@@ -53,5 +45,17 @@ jobs:
     - name: Build library artifacts
       run: poetry build
 
-    - name: Push the library to Artifactory
-      run: poetry publish -r broad-artifactory --username ${{ env.ARTIFACTORY_USER }} --password ${{ env.ARTIFACTORY_PASSWORD }}
+    - name: Cut Github release
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          dist/broad_dagster_utils-*.tar.gz
+          dist/broad_dagster_utils-*.whl
+
+    - name: Push the library to PyPI
+      run: poetry publish
+      env:
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+
