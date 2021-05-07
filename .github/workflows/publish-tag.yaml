@@ -42,6 +42,9 @@ jobs:
       id: dependencies
       run: poetry install
 
+    - name: Generate stubs
+      run: poetry run stubgen -p dagster_utils -o stubs
+
     - name: Build library artifacts
       run: poetry build
 

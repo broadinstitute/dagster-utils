@@ -3,3 +3,4 @@ poetry.lock
 .mypy_cache
 .pytest_cache
 dist
+stubs
