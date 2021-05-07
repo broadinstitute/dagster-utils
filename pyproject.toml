@@ -12,7 +12,9 @@ packages = [
 	{ include = "dagster_utils" }
 ]
 
-include = ["stubs/dagster_utils/**/*.pyi"]
+include = [
+	"dagster_utils/py.typed"
+]
 
 [tool.poetry.dependencies]
 # [2021-05-03]

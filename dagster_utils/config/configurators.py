@@ -36,7 +36,6 @@ def configurator_aimed_at_directory(
 
     preconfigure_for_mode(some_resource, "dev") # => configuration pulled from [package_root]/my_dagster_project/config/some_resource/
     """
-    base_config_directory = os.path.dirname(package_directory)
 
     def preconfigure_for_mode(
         dagster_object: ConfigurableDefinition,
@@ -78,7 +77,7 @@ def configurator_aimed_at_directory(
         optional_config_keys = [k for k, v in definition_config_keys.items() if isinstance(v.config_type, Noneable)]
         required_config_keys = [k for k, v in definition_config_keys.items() if k not in optional_config_keys]
         subdirectory = subdirectory or dagster_object.__name__
-        config_file_directory = os.path.join(base_config_directory, subdirectory)
+        config_file_directory = os.path.join(package_directory, subdirectory)
         loader = PreconfigurationLoader(
             name=dagster_object.__name__,
             config_file_directory=config_file_directory,

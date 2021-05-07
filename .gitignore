@@ -4,3 +4,4 @@ poetry.lock
 .pytest_cache
 dist
 stubs
+.DS_Store
