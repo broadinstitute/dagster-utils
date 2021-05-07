@@ -19,18 +19,23 @@ class PreconfiguratorFunction(Protocol):
 
 
 def configurator_aimed_at(
-    base_config_package: LocatablePackage
+    package: LocatablePackage,
+) -> PreconfiguratorFunction:
+    return configurator_aimed_at_directory(os.path.dirname(package.__file__))
+
+
+def configurator_aimed_at_directory(
+    package_directory: str,
 ) -> PreconfiguratorFunction:
     """
-    Generates a configuration function that loads config from YAML within the specified package.
+    Generates a configuration function that loads config from YAML within the specified package directory.
     See the inner function for details on how it works.
 
     Example usage:
-    preconfigure_for_mode = configurator_aimed_at(my_dagster_project.config)
+    preconfigure_for_mode = configurator_aimed_at(os.path.dirname(my_dagster_project.config.__file__))
 
     preconfigure_for_mode(some_resource, "dev") # => configuration pulled from [package_root]/my_dagster_project/config/some_resource/
     """
-    base_config_directory = os.path.dirname(base_config_package.__file__)
 
     def preconfigure_for_mode(
         dagster_object: ConfigurableDefinition,
@@ -72,7 +77,7 @@ def configurator_aimed_at(
         optional_config_keys = [k for k, v in definition_config_keys.items() if isinstance(v.config_type, Noneable)]
         required_config_keys = [k for k, v in definition_config_keys.items() if k not in optional_config_keys]
         subdirectory = subdirectory or dagster_object.__name__
-        config_file_directory = os.path.join(base_config_directory, subdirectory)
+        config_file_directory = os.path.join(package_directory, subdirectory)
         loader = PreconfigurationLoader(
             name=dagster_object.__name__,
             config_file_directory=config_file_directory,
