@@ -1,6 +1,8 @@
 # This workflow will create a new tag if the version in Poetry is bigger than the current latest release.
 name: Tag New Version If Updated
-
+# this workflow uses a token with expansive permissions, so we need to bind it to an environment
+# to make sure that that token can't be used in workflows not running on `main`
+environment: prod
 on:
   push:
     branches:
@@ -34,8 +36,8 @@ jobs:
     - name: Create new tag for new version
       uses: anothrNick/github-tag-action@1.26.0
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.BROADBOT_TOKEN }}
         CUSTOM_TAG: ${{ steps.current-version.outputs.version }}
         RELEASE_BRANCHES: main
-
+        VERBOSE: false
       if: steps.current-version.outputs.version != steps.latest-release.outputs.release
