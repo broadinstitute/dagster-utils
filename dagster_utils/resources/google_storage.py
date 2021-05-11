@@ -1,4 +1,5 @@
 from typing import Iterator
+from dataclasses import dataclass
 
 from dagster import resource
 from dagster.core.execution.context.init import InitResourceContext
@@ -14,15 +15,17 @@ def google_storage_client(_: InitResourceContext) -> storage.Client:
     return storage.Client(project=project, credentials=credentials)
 
 
+@dataclass
 class MockBlob:
+    name: str
     def delete(self) -> None:
         pass
 
 
 class MockStorageClient:
     def list_blobs(self, bucket_name: str, prefix: str) -> Iterator[MockBlob]:
-        for _ in range(0, 10):
-            yield MockBlob()
+        for i in range(0, 10):
+            yield MockBlob(f"fake_blob_{i}")
 
 
 @resource
