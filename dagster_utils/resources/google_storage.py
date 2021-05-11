@@ -18,6 +18,7 @@ def google_storage_client(_: InitResourceContext) -> storage.Client:
 @dataclass
 class MockBlob:
     name: str
+
     def delete(self) -> None:
         pass
 

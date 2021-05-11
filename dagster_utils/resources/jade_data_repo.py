@@ -45,6 +45,7 @@ class NoopDataRepoClient:
             "failedFiles": 0
         }
 
+
 @resource
 def noop_data_repo_client(init_context: InitResourceContext) -> NoopDataRepoClient:
     return NoopDataRepoClient()
