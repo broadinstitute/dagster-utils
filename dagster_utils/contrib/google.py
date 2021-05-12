@@ -8,7 +8,7 @@ DEFAULT_SCOPES = ['openid', 'email', 'profile', 'https://www.googleapis.com/auth
 
 
 def google_default() -> tuple[Credentials, str]:
-    return google.auth.default(scopes=DEFAULT_SCOPES)
+    return google.auth.default(scopes=DEFAULT_SCOPES)  # type: ignore # (unannotated library)
 
 
 def get_credentials() -> Credentials:
