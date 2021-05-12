@@ -3,15 +3,16 @@ from typing import Iterator
 from dagster import resource
 from dagster.core.execution.context.init import InitResourceContext
 
-import google.auth
 from google.cloud import storage
+
+from dagster_utils.contrib.google import authorized_session, google_default
 
 
 @resource
 def google_storage_client(_: InitResourceContext) -> storage.Client:
-    credentials, project = google.auth.default()
+    _, project = google_default()
 
-    return storage.Client(project=project, credentials=credentials)
+    return storage.Client(project=project, _http=authorized_session())
 
 
 class MockBlob:
