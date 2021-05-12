@@ -31,3 +31,7 @@ def default_google_access_token(credentials: Optional[Credentials] = None) -> st
 
 def authorized_session() -> AuthorizedSession:
     return AuthorizedSession(get_credentials())
+
+
+def gs_path_from_bucket_prefix(bucket: str, prefix: str) -> str:
+    return f"gs://{bucket}/{prefix}"
