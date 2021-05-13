@@ -19,13 +19,13 @@ def jade_data_repo_client(init_context: InitResourceContext) -> RepositoryApi:
     )
 
     # not an attribute of the Configuration class - we use this in the below method.
-    config._gcloud_credentials = get_credentials()
+    config._datarepo_gcloud_credentials = get_credentials()
 
-    # The data repo client calls this function every time it tries to build the
-    # authorization headers for a new request, so we'll have a new token generated for each request.
     def refresh_configured_api_key(conf: Configuration) -> None:
         conf.api_key['Authorization'] = default_google_access_token(conf._datarepo_gcloud_credentials)
 
+    # The data repo client calls this function every time it tries to build the
+    # authorization headers for a new request, so we'll have a new token generated for each request.
     config.refresh_api_key_hook = refresh_configured_api_key
 
     client = ApiClient(configuration=config)
