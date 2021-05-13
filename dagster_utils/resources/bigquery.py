@@ -1,13 +1,14 @@
 from google.cloud.bigquery import Dataset, Client
 from dagster import resource, InitResourceContext
-from dagster_utils.contrib.google import get_credentials
+
+from dagster_utils.contrib.google import authorized_session
 
 from unittest.mock import Mock
 
 
 @resource
 def bigquery_client(init_context: InitResourceContext) -> Client:
-    return Client(credentials=get_credentials())
+    return Client(_http=authorized_session())
 
 
 @resource
