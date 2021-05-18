@@ -59,6 +59,12 @@ class NoopDataRepoClient:
             "failedFiles": 0
         }
 
+    def apply_dataset_data_deletion(self, id: str, data_deletion_request: dict[str, object]) -> FakeJobResponse:
+        return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
+
+    def ingest_dataset(self, id: str, ingest: dict[str, object]) -> FakeJobResponse:
+        return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
+
 
 @resource
 def noop_data_repo_client(init_context: InitResourceContext) -> NoopDataRepoClient:
