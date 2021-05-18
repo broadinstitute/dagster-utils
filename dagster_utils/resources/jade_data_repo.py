@@ -12,11 +12,16 @@ from dagster_utils.contrib.google import default_google_access_token, get_creden
     "api_url": Field(StringSource)
 })
 def jade_data_repo_client(init_context: InitResourceContext) -> RepositoryApi:
+    client = build_client(host=init_context.resource_config["api_url"])
+
+
+def build_client(host: str):
     config = Configuration(
-        host=init_context.resource_config["api_url"],
-        api_key={'Authorization': None},  # will be overwritten when we generate a request, see below
+        host=host,
+        api_key={'Authorization': None },  # will be overwritten when we generate a request, see below
         api_key_prefix={'Authorization': 'Bearer'},
     )
+
 
     # not an attribute of the Configuration class - we use this in the below method.
     config._datarepo_gcloud_credentials = get_credentials()
