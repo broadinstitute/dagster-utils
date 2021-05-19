@@ -1,6 +1,7 @@
 import unittest
 
-from dagster_utils.resources.jade_data_repo import build_client
+from dagster_utils.resources.data_repo.jade_data_repo import build_client
+
 
 class DataRepoClientTestCase(unittest.TestCase):
 
@@ -8,3 +9,4 @@ class DataRepoClientTestCase(unittest.TestCase):
         client = build_client(host='https://jade.datarepo-dev.broadinstitute.org/')
         result = client.enumerate_datasets()
 
+        self.assertIsNotNone(result, "Should get back any result")
