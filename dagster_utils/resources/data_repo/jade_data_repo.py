@@ -20,7 +20,7 @@ def build_client(host: str) -> RepositoryApi:
     "api_url": Field(StringSource)
 })
 def jade_data_repo_client(init_context: InitResourceContext) -> RepositoryApi:
-    build_client(host)
+    return build_client(init_context.resource_config["api_url"])
 
 
 class NoopDataRepoClient:
@@ -47,6 +47,12 @@ class NoopDataRepoClient:
         return {
             "failedFiles": 0
         }
+
+    def apply_dataset_data_deletion(self, id: str, data_deletion_request: dict[str, object]) -> FakeJobResponse:
+        return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
+
+    def ingest_dataset(self, id: str, ingest: dict[str, object]) -> FakeJobResponse:
+        return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
 
 
 @resource
