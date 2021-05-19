@@ -8,13 +8,6 @@ from data_repo_client import ApiClient, Configuration, RepositoryApi
 from dagster_utils.contrib.google import default_google_access_token, get_credentials
 
 
-@resource({
-    "api_url": Field(StringSource)
-})
-def jade_data_repo_client(init_context: InitResourceContext) -> RepositoryApi:
-    client = build_client(host=init_context.resource_config["api_url"])
-
-
 def build_client(host: str):
     config = Configuration(
         host=host,
@@ -22,11 +15,11 @@ def build_client(host: str):
         api_key_prefix={'Authorization': 'Bearer'},
     )
 
-
     # not an attribute of the Configuration class - we use this in the below method.
     config._datarepo_gcloud_credentials = get_credentials()
 
     def refresh_configured_api_key(conf: Configuration) -> None:
+        import pdb ; pdb.set_trace()
         conf.api_key['Authorization'] = default_google_access_token(conf._datarepo_gcloud_credentials)
 
     # The data repo client calls this function every time it tries to build the
@@ -37,6 +30,14 @@ def build_client(host: str):
     client.client_side_validation = False
 
     return RepositoryApi(api_client=client)
+
+
+@resource({
+    "api_url": Field(StringSource)
+})
+def jade_data_repo_client(init_context: InitResourceContext) -> RepositoryApi:
+    return build_client(host=init_context.resource_config["api_url"])
+
 
 
 class NoopDataRepoClient:
