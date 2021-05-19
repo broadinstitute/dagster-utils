@@ -19,6 +19,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.DEV_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_TEST_KEY }}
+        export_default_credentials: true
     - name: Install Poetry
       uses: snok/install-poetry@v1.1.1
     - name: Cache dependencies
