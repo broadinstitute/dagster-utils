@@ -14,7 +14,7 @@ class RefreshingConfigurationTestCase(unittest.TestCase):
         config = RefreshingAccessTokenConfig("http://example.com", creds)
 
         self.assertEqual(config.access_token, "faketoken!")
-        # valid creds should not require refresh"
+        # valid creds should not require refresh
         creds.refresh.assert_not_called
 
     def test_refreshing_configuration_refreshes_on_invalid_token(self):
