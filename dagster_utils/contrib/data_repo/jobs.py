@@ -1,4 +1,5 @@
 import time
+from typing import Any
 import logging
 
 from data_repo_client import RepositoryApi
@@ -7,7 +8,7 @@ from dagster_utils.contrib.data_repo.typing import JobId
 
 
 class JobPollException(Exception):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args)
         self.message = kwargs.get('message')
 
