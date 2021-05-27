@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, Literal
+from typing import Callable, Literal, Optional
 
 import slack
 from dagster import DagsterLogManager, failure_hook, HookContext, HookDefinition,\
@@ -15,8 +15,8 @@ SlackMessageGenerator = Callable[[HookContext], str]
 class ConsoleSlackClient:
     logger: DagsterLogManager
 
-    def send_message(self, text: str) -> None:
-        self.logger.info(f"[SLACK] {text}")
+    def send_message(self, text: Optional[str] = None, blocks: Optional[list[dict[str, object]]] = None) -> None:
+        self.logger.info(f"[SLACK] {text} {blocks}")
 
 
 @resource
@@ -29,8 +29,8 @@ class LiveSlackClient:
     client: slack.WebClient
     channel: str
 
-    def send_message(self, text: str) -> None:
-        self.client.chat_postMessage(channel=self.channel, text=text)
+    def send_message(self, text: Optional[str] = None, blocks: Optional[list[dict[str, object]]] = None) -> None:
+        self.client.chat_postMessage(channel=self.channel, text=text, blocks=blocks)
 
 
 @resource({
