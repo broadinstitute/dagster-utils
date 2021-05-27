@@ -34,6 +34,9 @@ class NoopDataRepoClient:
         id: str
         job_status: str
 
+    def create_snapshot(self, snapshot: dict[str, str]) -> FakeJobResponse:
+        return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
+
     def enumerate_datasets(self) -> NoopResult:
         return NoopDataRepoClient.NoopResult(5)
 
@@ -43,8 +46,10 @@ class NoopDataRepoClient:
     def bulk_file_load(self, dataset_id: str, bulk_file_load: dict[str, str]) -> FakeJobResponse:
         return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
 
-    def retrieve_job_result(self, job_id: str) -> dict[str, int]:
+    def retrieve_job_result(self, job_id: str) -> dict[str, object]:
         return {
+            "id": "fake_object_id",
+            "name": "fake_object_name",
             "failedFiles": 0
         }
 
