@@ -17,6 +17,12 @@ Note that, despite this name, you'll need to import the package as `dagster_util
 from dagster_utils.typing import DagsterConfigDict
 ```
 
+### Local Testing
+For development against a local checkout in another project (i.e., a project with a dependency on `dagster_utils`), make the following adjustment to the project's `pyproject.toml`:
+```
+broad-dagster-utils = {path = "<relative path to your dagster_utils checkout>", develop = true}
+```
+
 ## Versioning
 
 This library is versioned semantically.
