@@ -52,6 +52,7 @@ class DataflowBeamRunner(BeamRunner):
 
 
 @resource({
+    "working_dir": Field(StringSource),
     "region": Field(StringSource),
     "worker_machine_type": Field(StringSource),
     "autoscaling_algorithm": Field(StringSource),
