@@ -13,7 +13,6 @@ class LocalBeamRunner(BeamRunner):
     working_dir: str
     logger: DagsterLogManager
 
-
     def __post_init__(self) -> None:
         self.arg_dict = {
             "runner": "direct",
