@@ -10,11 +10,13 @@ from dagster_k8s.client import DagsterKubernetesClient
 import kubernetes
 from kubernetes.client.models.v1_job import V1Job
 
+from dagster_utils.resources.beam.beam_runner import BeamRunner
+
 
 # separating out config for the cloud dataflow pipeline to make
 # the giant mess of parameters here a little easier to parse
 @dataclass
-class DataflowCloudConfig:
+class K8sDataflowCloudConfig:
     project: str
     service_account: str
     subnet_name: str
@@ -36,8 +38,8 @@ class DataflowCloudConfig:
 
 
 @dataclass
-class DataflowBeamRunner:
-    cloud_config: DataflowCloudConfig
+class K8sDataflowBeamRunner(BeamRunner):
+    cloud_config: K8sDataflowCloudConfig
     kubernetes_service_account: str
     temp_bucket: str
     image_name: str
@@ -93,7 +95,6 @@ class DataflowBeamRunner:
             args=args,
         )
 
-        # TODO unhardcode the SA name below
         template = kubernetes.client.V1PodTemplateSpec(
             metadata=kubernetes.client.V1ObjectMeta(name=pod_name),
             spec=kubernetes.client.V1PodSpec(
@@ -159,45 +160,3 @@ def dataflow_beam_runner(init_context: InitResourceContext) -> DataflowBeamRunne
         logger=init_context.log_manager,
     )
 
-
-@dataclass
-class LocalBeamRunner:
-    working_dir: str
-    logger: DagsterLogManager
-    target_class: str
-
-    def run(
-        self,
-        job_name: str,
-        input_prefix: str,
-        output_prefix: str,
-    ) -> None:
-        self.logger.info("Local beam runner")
-        subprocess.run(
-            ["sbt", f'{self.target_class}/run --inputPrefix={input_prefix} --outputPrefix={output_prefix}'],
-            check=True,
-            cwd=self.working_dir
-        )
-
-
-@resource({
-    "working_dir": Field(StringSource),
-    "target_class": Field(StringSource),  # 'hca-transformation-pipeline' is usually what you want
-})
-def local_beam_runner(init_context: InitResourceContext) -> LocalBeamRunner:
-    return LocalBeamRunner(
-        working_dir=init_context.resource_config["working_dir"],
-        target_class=init_context.resource_config["target_class"],
-        logger=init_context.log_manager,
-    )
-
-
-class TestBeamRunner:
-    def run(self, job_name: str, input_prefix: str, output_prefix: str) -> None:
-        # no thoughts, head empty
-        pass
-
-
-@resource
-def test_beam_runner(init_context: InitResourceContext) -> TestBeamRunner:
-    return TestBeamRunner()
