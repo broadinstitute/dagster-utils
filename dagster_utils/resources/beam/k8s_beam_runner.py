@@ -139,7 +139,7 @@ class K8sDataflowBeamRunner(BeamRunner):
     "image_version": Field(StringSource),
     "namespace": Field(StringSource),
 })
-def dataflow_beam_runner(init_context: InitResourceContext) -> K8sDataflowBeamRunner:
+def k8s_dataflow_beam_runner(init_context: InitResourceContext) -> K8sDataflowBeamRunner:
     cloud_config = K8sDataflowCloudConfig(
         project=init_context.resource_config['project'],
         service_account=init_context.resource_config['service_account'],
