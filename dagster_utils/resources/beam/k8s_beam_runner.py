@@ -48,11 +48,10 @@ class K8sDataflowBeamRunner(BeamRunner):
     def run(
         self,
         run_arg_dict: dict[str, Any],
+        job_name: str,
         target_class: str,
         scala_project: str
     ) -> None:
-        assert "job_name" in run_arg_dict, "job_name is required for K8s beam runner jobs"
-        job_name = run_arg_dict.pop("job_name")
         args_dict = {
             'runner': 'dataflow',
             'project': self.cloud_config.project,
