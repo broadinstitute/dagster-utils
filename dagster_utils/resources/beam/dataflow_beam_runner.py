@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 from dataclasses import dataclass
 import subprocess
 
@@ -37,6 +37,7 @@ class DataflowBeamRunner(BeamRunner):
             run_arg_dict: dict[str, Any],
             target_class: str,
             scala_project: str,
+            job_name: Optional[str] = None
     ) -> None:
         # create a new dictionary containing the keys and values of arg_dict + solid arguments
         dataflow_run_flags = {**self.arg_dict, **run_arg_dict}

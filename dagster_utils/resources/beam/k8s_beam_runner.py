@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Any
+from typing import List, Any, Optional
 from uuid import uuid4
 
 import kubernetes
@@ -49,10 +49,9 @@ class K8sDataflowBeamRunner(BeamRunner):
         self,
         run_arg_dict: dict[str, Any],
         target_class: str,
-        scala_project: str
+        scala_project: str,
+        job_name: Optional[str] = None
     ) -> None:
-        assert "job_name" in run_arg_dict, "job_name is required for K8s beam runner jobs"
-        job_name = run_arg_dict.pop("job_name")
         args_dict = {
             'runner': 'dataflow',
             'project': self.cloud_config.project,
@@ -82,11 +81,15 @@ class K8sDataflowBeamRunner(BeamRunner):
         client = DagsterKubernetesClient.production_client()
         client.wait_for_job_success(job.metadata.name, self.namespace)
 
-    def dispatch_k8s_job(self, image_name: str, job_name_prefix: str, args: List[str]) -> V1Job:
+    def dispatch_k8s_job(self, image_name: str, job_name_prefix: Optional[str], args: List[str]) -> V1Job:
         # we will need to poll the pod/job status on creation
         kubernetes.config.load_kube_config()
 
-        job_name = f"{job_name_prefix}-{uuid4()}"
+        if job_name_prefix:
+            job_name = f"{job_name_prefix}-{uuid4()}"
+        else:
+            job_name = f"{uuid4()}"
+
         pod_name = f"{job_name}-pod"
         job_container = kubernetes.client.V1Container(
             name=job_name,

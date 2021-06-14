@@ -1,8 +1,8 @@
-from typing import Any
-from dataclasses import dataclass
 import subprocess
+from dataclasses import dataclass
+from typing import Any, Optional
 
-from dagster import DagsterLogManager, resource, Field, IntSource, StringSource
+from dagster import DagsterLogManager, resource, Field, StringSource
 from dagster.core.execution.context.init import InitResourceContext
 
 from dagster_utils.resources.beam.beam_runner import BeamRunner
@@ -23,6 +23,7 @@ class LocalBeamRunner(BeamRunner):
             run_arg_dict: dict[str, Any],
             target_class: str,
             scala_project: str,
+            job_name: Optional[str] = None
     ) -> None:
         # create a new dictionary containing the keys and values of arg_dict + solid arguments
         local_run_flags = {**self.arg_dict, **run_arg_dict}
