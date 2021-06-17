@@ -13,6 +13,8 @@ class Sam:
     base_url: str
 
     def make_snapshot_public(self, snapshot_id: str) -> None:
+        # we are explicitly set content-type in this PUT as the requests lib only sets it when
+        # using the json= kwarg, and SAM will 415 otherwise
         response = self._session().put(
             self._api_url(f'api/resources/v1/datasnapshot/{snapshot_id}/policies/reader/public'),
             headers={"Content-type": "application/json"},
