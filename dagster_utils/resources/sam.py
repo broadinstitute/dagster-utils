@@ -15,6 +15,7 @@ class Sam:
     def make_snapshot_public(self, snapshot_id: str) -> None:
         response = self._session().put(
             self._api_url(f'api/resources/v1/datasnapshot/{snapshot_id}/policies/reader/public'),
+            headers={"Content-type": "application/json"},
             data="true",  # telling the endpoint to set the flag to true
         )
 
