@@ -5,6 +5,6 @@
 ## This PR
 
 
-## Library Checklist
+## Checklist
 
-- [ ] I have described my changes in detail in my commit message, breaking things down as described in the [README](README.md)
+- [ ] Documentation has been updated as needed.
