@@ -86,7 +86,7 @@ class K8sDataflowBeamRunner(BeamRunner):
             image_name: str,
             job_name_prefix: Optional[str],
             args: List[str],
-            load_incluster_config: bool = False
+            load_incluster_config: bool = True
     ) -> V1Job:
         # we will need to poll the pod/job status on creation
         if load_incluster_config:

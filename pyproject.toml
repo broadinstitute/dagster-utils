@@ -3,7 +3,7 @@ name = "broad_dagster_utils"
 license = "BSD-3-Clause"
 readme = "README.md"
 repository = "https://github.com/broadinstitute/dagster-utils"
-version = "0.5.1"
+version = "0.5.3"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Monster Dev <monsterdev@broadinstitute.org>"]
@@ -40,7 +40,7 @@ pytest = "^6.2.1"
 "Release Info" = "https://github.com/broadinstitute/dagster-utils/releases"
 
 [build-system]
-requires = ["poetry-core=^1.1.5"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.autopep8]
