@@ -81,9 +81,18 @@ class K8sDataflowBeamRunner(BeamRunner):
         client = DagsterKubernetesClient.production_client()
         client.wait_for_job_success(job.metadata.name, self.namespace)
 
-    def dispatch_k8s_job(self, image_name: str, job_name_prefix: Optional[str], args: List[str]) -> V1Job:
+    def dispatch_k8s_job(
+            self,
+            image_name: str,
+            job_name_prefix: Optional[str],
+            args: List[str],
+            load_incluster_config: bool = True
+    ) -> V1Job:
         # we will need to poll the pod/job status on creation
-        kubernetes.config.load_kube_config()
+        if load_incluster_config:
+            kubernetes.config.load_incluster_config()
+        else:
+            kubernetes.config.load_kube_config()
 
         if job_name_prefix:
             job_name = f"{job_name_prefix}-{uuid4()}"
