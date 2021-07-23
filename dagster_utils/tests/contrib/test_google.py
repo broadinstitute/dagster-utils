@@ -15,7 +15,7 @@ def test_parse_gs_path():
 def test_parse_gs_path_rejects_non_gs_paths():
     raw_path = "bucket/path"
 
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValueError):
         parse_gs_path(raw_path)
 
 
