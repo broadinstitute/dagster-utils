@@ -59,5 +59,3 @@ class GsBucketWithPrefix:
 def parse_gs_path(raw_gs_path: str) -> GsBucketWithPrefix:
     url_result = urlparse(raw_gs_path)
     return GsBucketWithPrefix(url_result.netloc, url_result.path[1:])
-
-
