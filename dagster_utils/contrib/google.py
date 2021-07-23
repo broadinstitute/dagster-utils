@@ -52,7 +52,7 @@ class GsBucketWithPrefix:
     bucket: str
     prefix: str
 
-    def to_gs_path(self):
+    def to_gs_path(self) -> str:
         return f"gs://{self.bucket}/{self.prefix}"
 
 
