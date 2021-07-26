@@ -30,7 +30,7 @@ def ingest_tabular_json_data(
         "format": "json",
         "ignore_unknown_values": "false",
         "max_bad_records": 0,
-        "path": f"{path}",
+        "path": path,
         "table": table,
     }
 
