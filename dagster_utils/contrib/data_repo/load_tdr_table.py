@@ -1,5 +1,5 @@
 """
-Contains useful TDR ingestion functions.
+Common TDR ingestion functions.
 """
 import logging
 
