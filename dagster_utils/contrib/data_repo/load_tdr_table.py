@@ -23,7 +23,9 @@ def ingest_tabular_json_data(
     :param data_repo_client: Datarepo client appropriate for the target dataset's environment (dev, prod, etc.)
     :return: Job ID for the TDR ingestion job
     """
-    assert path.startswith("gs://"), "Path must be a gs:// url"
+    if not path.startswith("gs://"):
+        raise ValueError("Path must be a gs:// url")
+
     ingest_payload = {
         "format": "json",
         "ignore_unknown_values": "false",
@@ -63,8 +65,11 @@ def find_outdated_rows_csv(
     :param outdated_ids_path: Path which will receive the CSV of outdated rows
     :param bigquery_client:  BQ client
     """
-    assert primary_keys, "primary_keys should be non-empty"
-    assert outdated_ids_path.startswith("gs://"), "outdated_ids_path should be a gs URL"
+    if not primary_keys:
+        raise ValueError("primary_keys should be non-empty")
+
+    if not outdated_ids_path.startswith("gs://"):
+        raise ValueError("outdated_ids_path should be a gs URL")
 
     fully_qualified_table_name = f"{target_dataset_project_id}.datarepo_{target_dataset_name}.{table_name}"
     joined_primary_keys = ", ".join(primary_keys)
@@ -98,7 +103,9 @@ def submit_soft_deletes_csv(path: str, target_dataset_id: str, data_repo_client:
     :param data_repo_client: Datarepo client appropriate for the target dataset's environment (dev, prod, etc.)
     :return: Job ID for the TDR soft deletion job
     """
-    assert path.startswith("gs://"), "path should be a gs url"
+    if not path.startswith("gs://"):
+        raise ValueError("path should be a gs url")
+
     payload = {
         "deleteType": "soft",
         "specType": "gcsFile",
