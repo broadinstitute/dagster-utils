@@ -6,13 +6,13 @@ import logging
 from data_repo_client.api.repository_api import RepositoryApi
 from google.cloud.bigquery.client import Client
 
-from dagster_utils.contrib.data_repo.typing import JobId
+from dagster_utils.contrib.data_repo.typing import JobId, DatasetId, DatasetName
 
 
 def ingest_tabular_json_data(
         path: str,
         table: str,
-        target_dataset_id: str,
+        target_dataset_id: DatasetId,
         data_repo_client: RepositoryApi,
 ) -> JobId:
     """
@@ -45,7 +45,7 @@ def ingest_tabular_json_data(
 
 def find_outdated_rows_csv(
         target_dataset_project_id: str,
-        target_dataset_name: str,
+        target_dataset_name: DatasetName,
         table_name: str,
         primary_keys: set[str],
         version_key: str,
@@ -95,7 +95,7 @@ def find_outdated_rows_csv(
     bigquery_client.query(query).result()
 
 
-def submit_soft_deletes_csv(path: str, target_dataset_id: str, data_repo_client: RepositoryApi) -> JobId:
+def submit_soft_deletes_csv(path: str, target_dataset_id: DatasetId, data_repo_client: RepositoryApi) -> JobId:
     """
     Submits a path containing CSV(s) of TDR row IDs for soft deletion
     :param path: GS path containing the CSV(s)
