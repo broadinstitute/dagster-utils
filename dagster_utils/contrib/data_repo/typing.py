@@ -16,3 +16,6 @@ class ProfileId(str):
 
 class DatasetName(str):
     pass
+
+class DatasetId(str):
+    pass
