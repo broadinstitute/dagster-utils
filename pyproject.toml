@@ -27,7 +27,7 @@ PyYAML = "^5.4.1"
 google-cloud-bigquery = "^2.15.0"
 slackclient = "^2.9.3"
 argo-workflows = "^5.0.0"
-data-repo-client = "^1.64.0"
+data-repo-client = "^1.134.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.5"
