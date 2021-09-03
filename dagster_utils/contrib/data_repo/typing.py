@@ -3,8 +3,20 @@ Types and annotations useful for interaction with TDR
 """
 
 
+# Aliases to add some type safety when calling the jade API client and make juggling the (many) string
+# parameters easier
+
 class JobId(str):
-    """
-    Alias for str to make the return type for jade API calls a little clearer
-    """
+    pass
+
+
+class ProfileId(str):
+    pass
+
+
+class DatasetName(str):
+    pass
+
+
+class DatasetId(str):
     pass

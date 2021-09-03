@@ -21,13 +21,13 @@ include = [
 # We're locked out of using python 3.10 because the BigQuery library doesn't support it.
 # I'd expect this to change relatively soon after release, so check back occasionally.
 python = "~3.9"
-dagster = "^0.12.2"
+dagster = "^0.12.3"
 google-cloud-storage = "^1.38.0"
 PyYAML = "^5.4.1"
 google-cloud-bigquery = "^2.15.0"
 slackclient = "^2.9.3"
 argo-workflows = "^5.0.0"
-data-repo-client = "^1.64.0"
+data-repo-client = "^1.134.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.5"
