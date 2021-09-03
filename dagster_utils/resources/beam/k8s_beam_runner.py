@@ -3,7 +3,7 @@ from typing import List, Any, Optional
 from uuid import uuid4
 
 import kubernetes
-from dagster import DagsterLogManager, Field, IntSource, resource, StringSource, String, Noneable
+from dagster import DagsterLogManager, Field, IntSource, resource, StringSource, String, Noneable, BoolSource
 from dagster.core.execution.context.init import InitResourceContext
 from dagster_k8s.client import DagsterKubernetesClient
 from kubernetes.client.models.v1_job import V1Job
@@ -22,6 +22,7 @@ class K8sDataflowCloudConfig:
     worker_machine_type: str
     starting_workers: int
     max_workers: int
+    load_incluster_config: bool
 
     def subnetwork(self) -> Optional[str]:
         if not self.subnet_name:
@@ -79,7 +80,8 @@ class K8sDataflowBeamRunner(BeamRunner):
         ]
 
         image_name = f"{self.image_name}:{self.image_version}"  # {context.solid_config['version']}"
-        job = self.dispatch_k8s_job(image_name, job_name, args, command=command)
+        job = self.dispatch_k8s_job(image_name, job_name, args, command=command,
+                                    load_incluster_config=self.cloud_config.load_incluster_config)
         self.logger.info("Dataflow job started")
 
         client = DagsterKubernetesClient.production_client()
@@ -90,7 +92,7 @@ class K8sDataflowBeamRunner(BeamRunner):
             image_name: str,
             job_name_prefix: Optional[str],
             args: List[str],
-            load_incluster_config: bool = False,
+            load_incluster_config: bool = True,
             command: Optional[list[str]] = None
     ) -> V1Job:
         # we will need to poll the pod/job status on creation
@@ -156,6 +158,7 @@ class K8sDataflowBeamRunner(BeamRunner):
     "image_name": Field(StringSource),
     "image_version": Field(StringSource),
     "namespace": Field(StringSource),
+    "load_incluster_config": Field(BoolSource)
 })
 def k8s_dataflow_beam_runner(init_context: InitResourceContext) -> K8sDataflowBeamRunner:
     cloud_config = K8sDataflowCloudConfig(
@@ -165,7 +168,8 @@ def k8s_dataflow_beam_runner(init_context: InitResourceContext) -> K8sDataflowBe
         region=init_context.resource_config['region'],
         worker_machine_type=init_context.resource_config['worker_machine_type'],
         starting_workers=init_context.resource_config['starting_workers'],
-        max_workers=init_context.resource_config['max_workers']
+        max_workers=init_context.resource_config['max_workers'],
+        load_incluster_config=init_context.resource_config["load_incluster_config"]
     )
     return K8sDataflowBeamRunner(
         cloud_config=cloud_config,
