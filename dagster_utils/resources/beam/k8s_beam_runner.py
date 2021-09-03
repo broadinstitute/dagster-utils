@@ -34,6 +34,7 @@ class K8sDataflowCloudConfig:
             self.subnet_name,
         ])
 
+
 @dataclass
 class K8sDataflowBeamRunner(BeamRunner):
     cloud_config: K8sDataflowCloudConfig
@@ -45,12 +46,12 @@ class K8sDataflowBeamRunner(BeamRunner):
     logger: DagsterLogManager
 
     def run(
-        self,
-        run_arg_dict: dict[str, Any],
-        target_class: str,
-        scala_project: str,
-        job_name: Optional[str] = None,
-        command: Optional[list[str]] = None
+            self,
+            run_arg_dict: dict[str, Any],
+            target_class: str,
+            scala_project: str,
+            job_name: Optional[str] = None,
+            command: Optional[list[str]] = None
     ) -> None:
         args_dict = {
             'runner': 'dataflow',
