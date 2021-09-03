@@ -23,7 +23,7 @@ class K8sDataflowCloudConfig:
     starting_workers: int
     max_workers: int
 
-    def subnetwork(self):
+    def subnetwork(self) -> Optional[str]:
         if not self.subnet_name:
             return None
 
@@ -65,8 +65,9 @@ class K8sDataflowBeamRunner(BeamRunner):
             'maxNumWorkers': str(self.cloud_config.max_workers),
             'experiments': 'shuffle_mode=service',
         }
-        if self.cloud_config.subnetwork():
-            args_dict['subnetwork'] = self.cloud_config.subnetwork()
+        subnet = self.cloud_config.subnetwork()
+        if subnet:
+            args_dict['subnetwork'] = subnet
 
         args_dict = {**args_dict, **run_arg_dict}
 

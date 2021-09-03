@@ -23,7 +23,8 @@ class LocalBeamRunner(BeamRunner):
             run_arg_dict: dict[str, Any],
             target_class: str,
             scala_project: str,
-            job_name: Optional[str] = None
+            job_name: Optional[str] = None,
+            command: Optional[list[str]] = None
     ) -> None:
         # create a new dictionary containing the keys and values of arg_dict + solid arguments
         local_run_flags = {**self.arg_dict, **run_arg_dict}

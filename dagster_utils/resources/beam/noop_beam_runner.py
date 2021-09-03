@@ -12,7 +12,8 @@ class NoopBeamBeamer(BeamRunner):
             run_arg_dict: dict[str, Any],
             target_class: str,
             scala_project: str,
-            job_name: Optional[str] = None
+            job_name: Optional[str] = None,
+            command: Optional[list[str]] = None
     ) -> None:
         pass
 
