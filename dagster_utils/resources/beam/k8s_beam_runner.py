@@ -3,7 +3,7 @@ from typing import List, Any, Optional
 from uuid import uuid4
 
 import kubernetes
-from dagster import DagsterLogManager, Field, IntSource, resource, StringSource
+from dagster import DagsterLogManager, Field, IntSource, resource, StringSource, String, Noneable
 from dagster.core.execution.context.init import InitResourceContext
 from dagster_k8s.client import DagsterKubernetesClient
 from kubernetes.client.models.v1_job import V1Job
@@ -17,17 +17,17 @@ from dagster_utils.resources.beam.beam_runner import BeamRunner
 class K8sDataflowCloudConfig:
     project: str
     service_account: str
-    subnet_name: str
+    subnet_name: Optional[str]
     region: str
     worker_machine_type: str
     starting_workers: int
     max_workers: int
 
-    # fields computed from provided params
-    subnetwork: str = field(init=False)
+    def subnetwork(self) -> Optional[str]:
+        if not self.subnet_name:
+            return None
 
-    def __post_init__(self) -> None:
-        self.subnetwork = '/'.join([
+        return '/'.join([
             'regions',
             self.region,
             'subnetworks',
@@ -46,18 +46,18 @@ class K8sDataflowBeamRunner(BeamRunner):
     logger: DagsterLogManager
 
     def run(
-        self,
-        run_arg_dict: dict[str, Any],
-        target_class: str,
-        scala_project: str,
-        job_name: Optional[str] = None
+            self,
+            run_arg_dict: dict[str, Any],
+            target_class: str,
+            scala_project: str,
+            job_name: Optional[str] = None,
+            command: Optional[list[str]] = None
     ) -> None:
         args_dict = {
             'runner': 'dataflow',
             'project': self.cloud_config.project,
             'region': self.cloud_config.region,
             'tempLocation': f'gs://{self.temp_bucket}/dataflow',
-            'subnetwork': self.cloud_config.subnetwork,
             'serviceAccount': self.cloud_config.service_account,
             'workerMachineType': self.cloud_config.worker_machine_type,
             'autoscalingAlgorithm': 'THROUGHPUT_BASED',
@@ -65,6 +65,10 @@ class K8sDataflowBeamRunner(BeamRunner):
             'maxNumWorkers': str(self.cloud_config.max_workers),
             'experiments': 'shuffle_mode=service',
         }
+        subnet = self.cloud_config.subnetwork()
+        if subnet:
+            args_dict['subnetwork'] = subnet
+
         args_dict = {**args_dict, **run_arg_dict}
 
         # process the args dict into dataflow flags
@@ -75,7 +79,7 @@ class K8sDataflowBeamRunner(BeamRunner):
         ]
 
         image_name = f"{self.image_name}:{self.image_version}"  # {context.solid_config['version']}"
-        job = self.dispatch_k8s_job(image_name, job_name, args)
+        job = self.dispatch_k8s_job(image_name, job_name, args, command=command)
         self.logger.info("Dataflow job started")
 
         client = DagsterKubernetesClient.production_client()
@@ -86,7 +90,8 @@ class K8sDataflowBeamRunner(BeamRunner):
             image_name: str,
             job_name_prefix: Optional[str],
             args: List[str],
-            load_incluster_config: bool = True
+            load_incluster_config: bool = False,
+            command: Optional[list[str]] = None
     ) -> V1Job:
         # we will need to poll the pod/job status on creation
         if load_incluster_config:
@@ -104,6 +109,7 @@ class K8sDataflowBeamRunner(BeamRunner):
             name=job_name,
             image=image_name,
             args=args,
+            command=command
         )
 
         template = kubernetes.client.V1PodTemplateSpec(
@@ -139,7 +145,7 @@ class K8sDataflowBeamRunner(BeamRunner):
 
 @resource({
     "project": Field(StringSource),
-    "subnet_name": Field(StringSource),
+    "subnet_name": Field(Noneable(str)),
     "region": Field(StringSource),
     "worker_machine_type": Field(StringSource),
     "starting_workers": Field(IntSource),
@@ -159,7 +165,7 @@ def k8s_dataflow_beam_runner(init_context: InitResourceContext) -> K8sDataflowBe
         region=init_context.resource_config['region'],
         worker_machine_type=init_context.resource_config['worker_machine_type'],
         starting_workers=init_context.resource_config['starting_workers'],
-        max_workers=init_context.resource_config['max_workers'],
+        max_workers=init_context.resource_config['max_workers']
     )
     return K8sDataflowBeamRunner(
         cloud_config=cloud_config,
@@ -168,5 +174,5 @@ def k8s_dataflow_beam_runner(init_context: InitResourceContext) -> K8sDataflowBe
         image_name=init_context.resource_config['image_name'],
         image_version=init_context.resource_config['image_version'],
         namespace=init_context.resource_config['namespace'],
-        logger=init_context.log_manager,
+        logger=init_context.log_manager
     )
