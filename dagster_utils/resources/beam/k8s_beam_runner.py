@@ -80,7 +80,8 @@ class K8sDataflowBeamRunner(BeamRunner):
         ]
 
         image_name = f"{self.image_name}:{self.image_version}"  # {context.solid_config['version']}"
-        job = self.dispatch_k8s_job(image_name, job_name, args, command=command, load_incluster_config=self.cloud_config.load_incluster_config)
+        job = self.dispatch_k8s_job(image_name, job_name, args, command=command,
+                                    load_incluster_config=self.cloud_config.load_incluster_config)
         self.logger.info("Dataflow job started")
 
         client = DagsterKubernetesClient.production_client()
