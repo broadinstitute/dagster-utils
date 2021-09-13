@@ -12,13 +12,13 @@ from dagster_utils.contrib.google import authorized_session
 class Sam:
     base_url: str
 
-    def make_snapshot_public(self, snapshot_id: str) -> None:
+    def set_public_flag(self, snapshot_id: str, status: bool) -> None:
         # we are explicitly set content-type in this PUT as the requests lib only sets it when
         # using the json= kwarg, and SAM will 415 otherwise
         response = self._session().put(
             self._api_url(f'api/resources/v1/datasnapshot/{snapshot_id}/policies/reader/public'),
             headers={"Content-type": "application/json"},
-            data="true",  # telling the endpoint to set the flag to true
+            data=f"{str(status).lower()}",  # telling the endpoint to set the flag to true/false
         )
 
         # raise an exception for a bad response
