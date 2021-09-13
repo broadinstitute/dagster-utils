@@ -19,7 +19,7 @@ class SamResourceTestCase(unittest.TestCase):
         with initialize_resource(sam_client, config=self.dummy_config) as client_instance:
             mock_authorized_session = MagicMock()
             with patch('dagster_utils.resources.sam.Sam._session', return_value=mock_authorized_session):
-                client_instance.make_snapshot_public('fake-snapshot-id')
+                client_instance.set_public_flag('fake-snapshot-id', True)
                 mock_authorized_session.put.assert_called_once_with(
                     StringEndingWith('datasnapshot/fake-snapshot-id/policies/reader/public'),
                     headers={"Content-type": "application/json"},
