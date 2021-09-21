@@ -59,7 +59,7 @@ class NoopDataRepoClient:
     def ingest_dataset(self, id: str, ingest: dict[str, object]) -> FakeJobResponse:
         return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
 
-    def add_snapshot_policy_member(self, id: str, policy_name: str, policy_member: PolicyMemberRequest):
+    def add_snapshot_policy_member(self, id: str, policy_name: str, policy_member: PolicyMemberRequest) -> PolicyResponse:
         return PolicyResponse(policies=[PolicyModel(name=policy_name, members=[policy_member])])
 
     def retrieve_snapshot(self, id: str, include: list[str]) -> SnapshotModel:
