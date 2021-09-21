@@ -4,7 +4,7 @@ from dagster import resource, StringSource, Field
 from dagster.core.execution.context.init import InitResourceContext
 from dagster_utils.contrib.google import get_credentials
 from dagster_utils.resources.data_repo.api_configuration import RefreshingAccessTokenConfig
-from data_repo_client import ApiClient, RepositoryApi
+from data_repo_client import ApiClient, RepositoryApi, PolicyMemberRequest, PolicyResponse, PolicyModel, SnapshotModel
 
 
 def build_client(host: str) -> RepositoryApi:
@@ -58,6 +58,12 @@ class NoopDataRepoClient:
 
     def ingest_dataset(self, id: str, ingest: dict[str, object]) -> FakeJobResponse:
         return NoopDataRepoClient.FakeJobResponse(True, "abcdef", "succeeded")
+
+    def add_snapshot_policy_member(self, id: str, policy_name: str, policy_member: PolicyMemberRequest):
+        return PolicyResponse(policies=[PolicyModel(name=policy_name, members=[policy_member])])
+
+    def retrieve_snapshot(self, id: str, include: list[str]) -> SnapshotModel:
+        return SnapshotModel(id=id, name="fake")
 
 
 @resource
