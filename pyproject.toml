@@ -3,7 +3,7 @@ name = "broad_dagster_utils"
 license = "BSD-3-Clause"
 readme = "README.md"
 repository = "https://github.com/broadinstitute/dagster-utils"
-version = "0.6.5"
+version = "0.6.6"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Monster Dev <monsterdev@broadinstitute.org>"]
