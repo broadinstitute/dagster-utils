@@ -41,7 +41,7 @@ def sam_client(init_context: InitResourceContext) -> Sam:
 
 
 class NoopSamClient:
-    def make_snapshot_public(self, snapshot_id: str) -> None:
+    def set_public_flag(self, snapshot_id: str, status: bool) -> None:
         pass
 
 
