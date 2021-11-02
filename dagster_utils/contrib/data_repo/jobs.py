@@ -41,7 +41,7 @@ def poll_job(
             logging.info(f"Data repo job_id = {job_id} completed")
             if job_info.job_status == "failed":
                 raise JobFailureException(
-                    message="Job did not complete successfully."
+                    message=f"job_id {job_id} did not complete successfully."
                 )
             return job_id
 
