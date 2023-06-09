@@ -1,4 +1,4 @@
-name: Generate and commit requirements file
+name: Generate requirements file
 
 on: pull_request
 
@@ -38,6 +38,6 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
-            branch: ${{GITHUB_REF##*/}}
+            branch: ${{ github.ref_name }}
             force: true
 
