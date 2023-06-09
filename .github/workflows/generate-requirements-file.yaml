@@ -22,7 +22,7 @@ jobs:
 
       #This is important since a lock file is required for the next step
       - name: Generate a lock file
-        run: poetry lock --no-interaction --no-root
+        run: poetry lock --no-interaction
 
       - name: Generate requirements.txt
         run: poetry export -f requirements.txt --without-hashes --no-interaction --no-root --output requirements.txt
