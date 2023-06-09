@@ -34,10 +34,14 @@ jobs:
             git add requirements.txt
             git commit -m "Update requirements.txt"
 
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v7
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
-            branch: ${GITHUB_HEAD_REF##*/} # Pushes to the branch the action is run on
+            branch: ${{ steps.branch-name.outputs.current_branch }} # Pushes to the branch the action is run on
             force: true
 
