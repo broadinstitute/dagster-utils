@@ -1,8 +1,6 @@
 name: Generate and commit requirements file
 
-on:
-  pull_request:
-    branches: ["main"]
+on: pull_request
 
 jobs:
   test:
@@ -31,15 +29,15 @@ jobs:
 
       - name: Commit requirements.txt
         run: |
-          git config --local user.email "dsp-fieldeng@broadinstitute.org"
-          git config --local user.name "dsp-fieldeng-bot"
-          git add requirements.txt
-          git commit -m "Update requirements.txt"
+            git config --local user.email "dsp-fieldeng@broadinstitute.org"
+            git config --local user.name "dsp-fieldeng-bot"
+            git add requirements.txt
+            git commit -m "Update requirements.txt"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{GITHUB_REF##*/}} # Pushes to the branch the action is run on
-          force: true
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: ${{GITHUB_REF##*/}}
+            force: true
 
