@@ -1,6 +1,8 @@
-name: Generate requirements file
+name: Generate and commit requirements file
 
-on: pull_request
+on:
+  pull_request:
+    branches: ["main"]
 
 jobs:
   test:
