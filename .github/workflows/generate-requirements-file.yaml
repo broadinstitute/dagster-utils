@@ -25,12 +25,12 @@ jobs:
         run: poetry lock --no-interaction
 
       - name: Generate requirements.txt
-        run: poetry export -f requirements.txt --without-hashes --no-interaction --no-root --output requirements.txt
+        run: poetry export -f requirements.txt --without-hashes --no-interaction --output requirements.txt
 
       - name: Commit requirements.txt
         run: |
-            git config --local user.email
-            git config --local user.name
+            git config --local user.email "dsp-fieldeng@broadinstitute.org"
+            git config --local user.name "dsp-fieldeng-bot"
             git add requirements.txt
             git commit -m "Update requirements.txt"
 
