@@ -23,6 +23,10 @@ For development against a local checkout in another project (i.e., a project wit
 broad-dagster-utils = {path = "<relative path to your dagster_utils checkout>", develop = true}
 ```
 
+## Requirements
+
+Please do not use requirements.txt to install dependencies. Instead, use [Poetry](https://python-poetry.org/). Poetry will automatically generate a requirements.txt file for you, and it will also generate a lock file that will ensure that all developers are using the same versions of dependencies.
+
 ## Versioning
 
 This library is versioned semantically.
