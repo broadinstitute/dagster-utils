@@ -25,7 +25,8 @@ broad-dagster-utils = {path = "<relative path to your dagster_utils checkout>", 
 
 ## Requirements
 
-Please do not use requirements.txt to install dependencies. Instead, use [Poetry](https://python-poetry.org/). Poetry will automatically generate a requirements.txt file for you, and it will also generate a lock file that will ensure that all developers are using the same versions of dependencies.
+Please **DO NOT** use requirements.txt to install dependencies. _These are generated automatically using **Github Actions**_ and used exclusively for security scanning. 
+Instead, use [Poetry](https://python-poetry.org/).  `poetry install` Poetry will automatically install dependencies for you, and it will also generate a lock file that will ensure that all developers are using the same versions of dependencies.
 
 ## Versioning
 
