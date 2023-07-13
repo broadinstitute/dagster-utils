@@ -1,9 +1,7 @@
 # This workflow will create a new tag if the version in Poetry is bigger than the current latest release.
 name: Tag New Version If Updated
-on:
-  push:
-    branches:
-      - main
+
+on: pull_request
 
 jobs:
   create-tag-if-new-version:
@@ -20,7 +18,7 @@ jobs:
         python-version: 3.9
 
     - name: Install Poetry
-      uses: snok/install-poetry@v1.1.8
+      uses: snok/install-poetry@v1
 
     - name: Fetch current configured version
       id: current-version
