@@ -48,8 +48,8 @@ jobs:
       run: poetry run mypy
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run test suite
-      run: poetry run pytest./tests
+      run: poetry run pytest
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      run: poetry run pytest ./tests -m ci_only
+      run: poetry run pytest -m ci_only
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
