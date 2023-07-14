@@ -34,7 +34,7 @@ autopep8 = "^1.5.5"
 flake8 = "^3.8.4"
 mypy = "^0.812"
 pre-commit = "^2.11.0"
-pytest = "^6.2.1"
+pytest = "^7.4.0"
 
 [tool.poetry.urls]
 "Release Info" = "https://github.com/broadinstitute/dagster-utils/releases"
