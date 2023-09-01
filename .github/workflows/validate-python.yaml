@@ -45,13 +45,13 @@ jobs:
       run: poetry run autopep8 --recursive --diff --exit-code .
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Install mypy requirements
-      run: pip install types-python-dateutil types-pytz types-PyYAML types-pytest
+      run: pip install types-python-dateutil types-pytz types-PyYAML
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Check static types
       run: poetry run mypy -p dagster_utils  --ignore-missing-imports --install-types --non-interactive
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
-    - name: Run test suite
-      run: poetry run pytest
+    - name: Run test suite for folder dagster_utils
+      run: poetry run pytest dagster_utils
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
       run: poetry run pytest -m ci_only
