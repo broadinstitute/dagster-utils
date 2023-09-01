@@ -51,8 +51,8 @@ jobs:
       run: poetry run mypy -p dagster_utils  --ignore-missing-imports --install-types --non-interactive
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run test suite
-      run: poetry run pytest
+      run: pytest .
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      run: poetry run pytest -m ci_only
+      run: pytest -m ci_only
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
