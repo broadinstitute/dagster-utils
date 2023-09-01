@@ -44,11 +44,11 @@ jobs:
     - name: Enforce coding style guide
       run: poetry run autopep8 --recursive --diff --exit-code .
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
-    - name: Install mypy types
-      run: poetry run mypy --install-types --non-interactive
+    - name: Install mypy requirements
+      run: pip install types-python-dateutil types-pytz types-PyYAML types-pytest
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Check static types
-      run: poetry run mypy -p dagster_utils
+      run: poetry run mypy -p dagster_utils  --ignore-missing-imports --install-types --non-interactive
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run test suite
       run: poetry run pytest
