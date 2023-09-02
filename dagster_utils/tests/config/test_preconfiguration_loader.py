@@ -5,13 +5,13 @@ import warnings
 import yaml
 
 
-import dagster_utils.config
-from dagster_utils.config.preconfiguration_loader import PreconfigurationLoader
+import config
+from config.preconfiguration_loader import PreconfigurationLoader
 
 
 class PreconfigurationLoaderTestCase(unittest.TestCase):
     def setUp(self):
-        self.config_package_dir = os.path.dirname(dagster_utils.config.__file__)
+        self.config_package_dir = os.path.dirname(config.__file__)
 
     def test_validated_config_raises_if_missing_keys(self):
         loader = PreconfigurationLoader(
