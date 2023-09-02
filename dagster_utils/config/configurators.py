@@ -4,7 +4,7 @@ from typing import Optional, Protocol
 from dagster import configured, Noneable
 from dagster.core.definitions.configurable import ConfigurableDefinition
 
-from dagster_utils.dagster_typing import DagsterConfigDict, DagsterObjectConfigSchema, LocatablePackage
+from dagster_utils.typing import DagsterConfigDict, DagsterObjectConfigSchema, LocatablePackage
 from dagster_utils.config.preconfiguration_loader import PreconfigurationLoader
 
 

@@ -4,7 +4,7 @@ from typing import Any
 
 from dagster import DagsterInstance, ResourceDefinition
 from dagster.core.execution.build_resources import build_resources
-from dagster_utils.dagster_typing import DagsterConfigDict
+from dagster_utils.typing import DagsterConfigDict
 
 
 # n.b. 2021-03-22

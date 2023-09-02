@@ -6,7 +6,7 @@ from dagster import DagsterLogManager, failure_hook, HookContext, HookDefinition
     resource, String, StringSource, success_hook
 from dagster.core.execution.context.init import InitResourceContext
 
-from dagster_utils.dagster_typing import DagsterHookFunction
+from dagster_utils.typing import DagsterHookFunction
 
 SlackMessageGenerator = Callable[[HookContext], str]
 
