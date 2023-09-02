@@ -14,6 +14,7 @@ jobs:
     env:
       ENV: test
       PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      PYTHONPATH: ${{ github.workspace }}/dagster-utils
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
@@ -34,5 +35,5 @@ jobs:
       run: poetry run pytest
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      run: pytest -m ci_only
+      run: poetry run pytest -m ci_only
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
