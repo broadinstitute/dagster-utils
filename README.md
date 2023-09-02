@@ -13,9 +13,8 @@ broad_dagster_utils = "^0.1.0"
 ```
 
 Note that, despite this name, you'll need to import the package as `dagster_utils`, e.g.:
-
 ```python
-from dagster_src.dagster_typing import DagsterConfigDict
+from dagster_utils.dagster_typing import DagsterConfigDict
 ```
 
 ### Local Testing
