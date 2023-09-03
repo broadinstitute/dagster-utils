@@ -32,8 +32,8 @@ jobs:
       id: dependencies
       run: poetry install
     - name: Run test suite
-      run: cd dagster-utils && poetry run pytest
+      run: poetry run pytest dagster-utils/dagster-utils/dagster-utils/tests
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      run: cd dagster-utils && poetry run pytest -m ci_only
+      run: poetry run pytest -m ci_only
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
