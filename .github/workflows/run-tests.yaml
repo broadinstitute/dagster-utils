@@ -18,9 +18,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
+      id: cp310
       with:
-        python-version: 3.9
+        python-version: '3.9'
+        update-environment: false
     - uses: 'google-github-actions/setup-gcloud@v1'
       with:
         project_id: ${{ secrets.DEV_PROJECT_ID }}
