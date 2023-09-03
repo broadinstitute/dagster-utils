@@ -18,8 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      id: cp310
+      uses: actions/setup-python@v3
       with:
         python-version: '3.9'
         update-environment: false
