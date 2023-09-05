@@ -32,7 +32,7 @@ jobs:
             git config --local user.email "dsp-fieldeng@broadinstitute.org"
             git config --local user.name "dsp-fieldeng-bot"
             git add requirements.txt
-            git commit -m "Update requirements.txt"
+            git diff-index --quiet HEAD || git commit -m "Update requirements.txt"
 
       - name: Get branch name
         id: branch-name

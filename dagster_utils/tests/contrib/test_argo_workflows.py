@@ -3,10 +3,10 @@ import unittest
 from unittest.mock import MagicMock, patch, call
 from typing import Optional
 
-from dagster_utils.contrib.argo_workflows import ArgoArchivedWorkflowsClient
+from contrib.argo_workflows import ArgoArchivedWorkflowsClient
 from argo.workflows.client.models import V1alpha1Workflow
 
-from dagster_utils.tests.support.mock_workflows import mock_argo_workflow, extend_workflow
+from tests.support.mock_workflows import mock_argo_workflow, extend_workflow
 
 
 class ArgoArchivedWorkflowsClientTestCase(unittest.TestCase):
