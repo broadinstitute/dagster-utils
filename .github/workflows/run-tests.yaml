@@ -30,12 +30,14 @@ jobs:
       uses: snok/install-poetry@v1
     - name: Install dependencies
       id: dependencies
+      with:
+        path: "./dagster_utils"
       run: poetry install
     - name: Run test suite
-      working-directory: ./tests
+      working-directory: ./dagster_utils
       run: poetry run pytest
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      working-directory: ./tests
+      working-directory: ./dagster_utils
       run: poetry run pytest -m ci_only
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
