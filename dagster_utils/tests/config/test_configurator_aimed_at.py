@@ -5,7 +5,7 @@ import yaml
 
 from dagster import solid, Noneable, String
 
-import dagster_utils.config
+import config
 from dagster_utils.config import configurator_aimed_at
 from dagster_utils.testing.filesystem import EphemeralNamedDirectory
 
@@ -14,8 +14,8 @@ class ConfiguratorAimedAtTestCase(unittest.TestCase):
     def setUp(self):
         self.dummy_function = lambda _: 0
         self.dummy_function.__name__ = 'steve'
-        self.config_package_dir = os.path.dirname(dagster_utils.config.__file__)
-        self.configurator = configurator_aimed_at(dagster_utils.config)
+        self.config_package_dir = os.path.dirname(config.__file__)
+        self.configurator = configurator_aimed_at(config)
 
     def test_treats_noneable_fields_as_optional(self):
         solid_def = solid(config_schema={
