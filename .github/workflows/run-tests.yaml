@@ -14,6 +14,7 @@ jobs:
     env:
       ENV: test
       PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      POETRY_VIRTUALENVS_PATH: ./dagster_utils/.venv
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
