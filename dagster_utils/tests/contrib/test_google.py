@@ -1,6 +1,6 @@
 import pytest
 
-from dagster_utils.contrib.google import parse_gs_path, GsBucketWithPrefix
+from contrib.google import parse_gs_path, GsBucketWithPrefix
 
 
 def test_parse_gs_path():
