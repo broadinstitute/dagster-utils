@@ -2,9 +2,9 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from dagster_utils.resources.sam import sam_client, Sam
-from dagster_utils.testing.resources import initialize_resource
-from dagster_utils.testing.matchers import StringEndingWith
-from dagster_utils.typing import DagsterConfigDict
+from testing.resources import initialize_resource
+from testing.matchers import StringEndingWith
+from dagster_utils.dagster_typing import DagsterConfigDict
 
 
 class SamResourceTestCase(unittest.TestCase):
