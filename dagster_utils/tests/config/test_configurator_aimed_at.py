@@ -5,9 +5,9 @@ import yaml
 
 from dagster import solid, Noneable, String
 
-from ... import config
-from ...config import configurator_aimed_at
-from ...testing.filesystem import EphemeralNamedDirectory
+import config
+from dagster_utils.config import configurator_aimed_at
+from dagster_utils.testing.filesystem import EphemeralNamedDirectory
 
 
 class ConfiguratorAimedAtTestCase(unittest.TestCase):
