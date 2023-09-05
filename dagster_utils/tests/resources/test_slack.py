@@ -2,7 +2,7 @@ import unittest
 
 from dagster_utils.resources.slack import live_slack_client, LiveSlackClient
 from dagster_utils.testing.resources import initialize_resource
-from dagster_utils.typing import DagsterConfigDict
+from dagster_utils.dagster_typing import DagsterConfigDict
 
 
 class LiveSlackResourceTestCase(unittest.TestCase):
