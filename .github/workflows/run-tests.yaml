@@ -33,12 +33,12 @@ jobs:
     - name: Install dependencies;l
       id: dependencies
       working-directory: ./dagster_utils
-      run: poetry install
+      run: poetry install --no-root
     - name: Run test suite
       working-directory: ./dagster_utils
-      run: poetry run pytest
+      run: poetry run pytest --no-root
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
       working-directory: ./dagster_utils
-      run: poetry run pytest -m ci_only
+      run: poetry run pytest -m ci_only --no-root
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
