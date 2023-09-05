@@ -31,6 +31,8 @@ jobs:
     - name: Install dependencies
       id: dependencies
       run: poetry install
+    - name: Change working directory
+      run: cd dagster-utils
     - name: Run test suite
       run: poetry run pytest dagster-utils/dagster-utils/dagster-utils/tests
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
