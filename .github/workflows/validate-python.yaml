@@ -48,5 +48,5 @@ jobs:
       run: pip install types-python-dateutil types-pytz types-PyYAML
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Check static types
-      run: poetry run mypy -p dagster  --ignore-missing-imports --install-types --non-interactive
+      run: poetry run mypy -p dagster  --ignore-missing-imports
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails

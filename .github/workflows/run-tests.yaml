@@ -36,13 +36,10 @@ jobs:
         installer-parallel: true
     - name: Install dependencies
       id: dependencies
-      working-directory: ../
       run: poetry install --no-root
     - name: Run test suite
-      working-directory: ../
       run: poetry run pytest --no-root
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      working-directory: ../
       run: poetry run pytest -m ci_only --no-root
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
