@@ -8,10 +8,10 @@ version = "0.6.7"
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Monster Dev <monsterdev@broadinstitute.org>"]
 
-packages = [{ include = "dagster_utils", from = "."}]
+packages = [{from = "."}]
 
 include = [
-    "dagster_utils/py.typed"
+    "dagster/py.typed"
 ]
 
 [tool.poetry.dependencies]

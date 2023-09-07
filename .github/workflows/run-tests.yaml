@@ -14,7 +14,7 @@ jobs:
     env:
       ENV: test
       PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
-      POETRY_VIRTUALENVS_PATH: ./dagster_utils/.venv
+      POETRY_VIRTUALENVS_PATH: .venv
       POETRY_VIRTUALENVS_IN_PROJECT: true
     steps:
     - uses: actions/checkout@v2
@@ -30,15 +30,19 @@ jobs:
         export_default_credentials: true
     - name: Install Poetry
       uses: snok/install-poetry@v1
-    - name: Install dependencies;l
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+    - name: Install dependencies
       id: dependencies
-      working-directory: ./dagster_utils
+      working-directory: ../
       run: poetry install --no-root
     - name: Run test suite
-      working-directory: ./dagster_utils
+      working-directory: ../
       run: poetry run pytest --no-root
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
     - name: Run CI-only test suite
-      working-directory: ./dagster_utils
+      working-directory: ../
       run: poetry run pytest -m ci_only --no-root
       if: always() && steps.dependencies.outcome == 'success' # run all three checks, even if a prior check fails
