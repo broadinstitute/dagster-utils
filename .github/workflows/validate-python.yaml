@@ -15,12 +15,14 @@ jobs:
       ENV: test
       PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.9
-    - uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
       with:
         project_id: ${{ secrets.DEV_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_TEST_KEY }}
