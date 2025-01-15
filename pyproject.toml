@@ -19,6 +19,9 @@ include = [
 [tool.poetry.dependencies]
 python = "^3.10"
 dagster = "^0.12.14"
+# added to get past old Dagster test dependencies - remove when you upgrade dagster
+# alembic is related to this
+sqlalchemy = "^1.4.50"
 # alembic="^1.10.0"
 google-cloud-storage = "^1.38.0"
 PyYAML = "^6.0.2"
@@ -27,7 +30,7 @@ google-cloud-bigquery = "^3.27.0"
 slackclient = "^2.9.3"
 argo-workflows = "^5.0.0"
 data-repo-client = "^1.134.0"
-# remove when you upgrade to 3.12
+# remove when you upgrade to pyhton 3.12
 setuptools = "^57.5.0"
 
 [tool.poetry.group.dev.dependencies]
