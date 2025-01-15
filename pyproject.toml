@@ -27,6 +27,8 @@ google-cloud-bigquery = "^3.27.0"
 slackclient = "^2.9.3"
 argo-workflows = "^5.0.0"
 data-repo-client = "^1.134.0"
+# remove when you upgrade to 3.12
+setuptools = "^57.5.0"
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^1.5.5"
