@@ -30,7 +30,7 @@ jobs:
     - name: Install Poetry
       uses: snok/install-poetry@v1
     - name: Use cache dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       env:
         cache-name: cache-poetry
       with:
