@@ -24,7 +24,6 @@ jobs:
 
     - name: Fetch current configured version
       id: current-version
-      # run: echo "::set-output name=version::$(poetry version -s)"
       run: |
         echo "VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
         echo $VERSION
