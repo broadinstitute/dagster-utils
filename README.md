@@ -48,6 +48,6 @@ When describing changes made in a commit message, we want to be more thorough th
 
 ### Releasing a new version
 
-To release a new version, determine what type of version increase your changes constitute (see the above guide) and update the version listed in `pyproject.toml` accordingly. Poetry has several [version bump commands](https://python-poetry.org/docs/cli/#version) to help with this. You can update the version in a dedicated PR or as part of another change. When a PR that updates the version number lands on master, an action will run to create a new tag for that version number, followed by cutting a Git release and publishing the new version to PyPI.
+To release a new version, determine what type of version increase your changes constitute (see the above guide) and update the version listed in `pyproject.toml` accordingly. Poetry has several [version bump commands](https://python-poetry.org/docs/cli/#version) to help with this. You can update the version in a dedicated PR or as part of another change. When a PR that updates the version number lands on main, an action will run to create a new tag for that version number, followed by cutting a Git release and publishing the new version to PyPI.
 
 When making changes to this repository you must first set up Git Secrets - see [Setup Git Secrets](https://dsp-security.broadinstitute.org/platform-security-categories/git/setup-git-secrets)
