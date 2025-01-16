@@ -1,7 +1,7 @@
 name: Publish New Tag To Github and PyPI
 
 on:
-  - create
+  create
 
 jobs:
   publish-release:
@@ -20,7 +20,10 @@ jobs:
 
     - name: Check current recorded version in Poetry
       id: current-version
-      run: echo "::set-output name=version::$(poetry version -s)"
+      # run: echo "::set-output name=version::$(poetry version -s)"
+      run: |
+        echo "$VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+        echo $VERSION
 
     - name: Blow up if version does not match tag
       run: exit 1
