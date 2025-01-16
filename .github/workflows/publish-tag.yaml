@@ -47,14 +47,14 @@ jobs:
     - name: Build library artifacts
       run: poetry build
 
-    - name: Cut Github release
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        prerelease: false
-        files: |
-          dist/broad_dagster_utils-*.tar.gz
-          dist/broad_dagster_utils-*.whl
+#    - name: Cut Github release
+#      uses: "marvinpinto/action-automatic-releases@latest"
+#      with:
+#        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#        prerelease: false
+#        files: |
+#          dist/broad_dagster_utils-*.tar.gz
+#          dist/broad_dagster_utils-*.whl
 
     - name: Push the library to PyPI
       run: poetry publish
