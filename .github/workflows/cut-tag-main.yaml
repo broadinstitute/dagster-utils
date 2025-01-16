@@ -24,7 +24,10 @@ jobs:
 
     - name: Fetch current configured version
       id: current-version
-      run: echo "::set-output name=version::$(poetry version -s)"
+      # run: echo "::set-output name=version::$(poetry version -s)"
+      run: |
+        echo "VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+        echo $VERSION
 
     - name: Fetch latest released version
       id: latest-release
@@ -34,7 +37,7 @@ jobs:
         excludes: prerelease, draft
 
     - name: Create new tag for new version
-      uses: anothrNick/github-tag-action@1.26.0
+      uses: anothrNick/github-tag-action@1.71.0
       env:
         GITHUB_TOKEN: ${{ secrets.BROADBOT_TOKEN }}
         CUSTOM_TAG: ${{ steps.current-version.outputs.version }}
