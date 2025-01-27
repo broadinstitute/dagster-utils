@@ -20,7 +20,7 @@ include = [
 # going back to 3.9 for now - just want to get past the old dagster dependencies & make sure appsec image model works
 python = "~3.9"
 dagster = "^0.13.0"
-# alembic="^1.10.0"
+alembic="^1.6.5"
 google-cloud-storage = "^1.38.0"
 PyYAML = "^6.0.2"
 pendulum = "2.1.2"
@@ -35,7 +35,6 @@ setuptools = "^57.5.0"
 autopep8 = "^1.5.5"
 flake8 = "^3.8.4"
 mypy = "^0.812"
-# alembic="^1.10.0"
 pre-commit = "^2.11.0"
 pytest = "^6.2.1"
 
