@@ -48,6 +48,9 @@ When describing changes made in a commit message, we want to be more thorough th
 
 ### Releasing a new version
 
+**NOTE** tag, release & publish to PyPi are currently manual, due to the deprecation of Vault for secrets. \
+Documentation for these tasks are in the [Dev Playbook](https://docs.google.com/document/d/1b03-YphH6Uac5huBopLYTYjzgDAlwS6qf-orMqaph64/edit?tab=t.0)
+
 To release a new version, determine what type of version increase your changes constitute (see the above guide) and update the version listed in `pyproject.toml` accordingly. Poetry has several [version bump commands](https://python-poetry.org/docs/cli/#version) to help with this. You can update the version in a dedicated PR or as part of another change. When a PR that updates the version number lands on main, an action will run to create a new tag for that version number, followed by cutting a Git release and publishing the new version to PyPI.
 
 When making changes to this repository you must first set up Git Secrets - see [Setup Git Secrets](https://dsp-security.broadinstitute.org/platform-security-categories/git/setup-git-secrets)
