@@ -3,7 +3,7 @@ name = "broad_dagster_utils"
 license = "BSD-3-Clause"
 readme = "README.md"
 repository = "https://github.com/broadinstitute/dagster-utils"
-version = "2.0.0-alpha.4"
+version = "2.0.0-alpha.5"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Monster Dev <monsterdev@broadinstitute.org>"]
@@ -18,7 +18,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = "~3.10"
-dagster = "^0.14.0"
+dagster = "^0.15.0"
 google-cloud-storage = "^1.38.0"
 PyYAML = "^6.0.2"
 pendulum = "2.1.2"
@@ -26,9 +26,6 @@ google-cloud-bigquery = "<3"
 slackclient = "^2.9.3"
 argo-workflows = "^5.0.0"
 data-repo-client = "^1.134.0"
-# remove when you upgrade to python 3.12
-# this version of setuptools is vulnerable, maybe I don't need to install it anymore?
-# setuptools = "^57.5.0"
 sqlalchemy = "^1.4.54"
 
 [tool.poetry.group.dev.dependencies]
