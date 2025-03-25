@@ -9,7 +9,7 @@ from dagster.core.execution.context.init import InitResourceContext
 #
 # from dagster_utils.typing import DagsterHookFunction
 
-SlackMessageGenerator = Callable[[HookContext], str]
+SlackMessageGenerator = Callable[[dg.HookContext], str]
 
 
 @dataclass
