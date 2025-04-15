@@ -18,8 +18,8 @@ include = [
 
 [tool.poetry.dependencies]
 python = "~3.10"
-dagster = "^1.0.17"
-google-cloud-storage = "^1.38.0"
+dagster = "1.0.17"
+google-cloud-storage = "^2.6.0"
 PyYAML = "^6.0.2"
 pendulum = "2.1.2"
 google-cloud-bigquery = "<3"
