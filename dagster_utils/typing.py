@@ -5,7 +5,7 @@ Types and type annotations useful for Dagster applications.
 from dagster import HookContext
 from dagster.config import ConfigType as DagsterConfigType
 
-from typing import Callable, Literal, Protocol, TypedDict, Union
+from typing import Callable, Literal, Protocol, Union
 
 
 # dict of config settings for a given instance of a dagster object
