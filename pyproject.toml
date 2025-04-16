@@ -3,7 +3,7 @@ name = "broad_dagster_utils"
 license = "BSD-3-Clause"
 readme = "README.md"
 repository = "https://github.com/broadinstitute/dagster-utils"
-version = "2.0.0-alpha.6"
+version = "2.0.0-alpha.7"
 
 description = "Common utilities and objects for building Dagster pipelines"
 authors = ["Monster Dev <monsterdev@broadinstitute.org>"]
@@ -18,8 +18,8 @@ include = [
 
 [tool.poetry.dependencies]
 python = "~3.10"
-dagster = "^0.15.0"
-google-cloud-storage = "^1.38.0"
+dagster = "1.0.17"
+google-cloud-storage = "^2.6.0"
 PyYAML = "^6.0.2"
 pendulum = "2.1.2"
 google-cloud-bigquery = "<3"
