@@ -2,7 +2,7 @@
 Types and type annotations useful for Dagster applications.
 """
 
-from dagster import HookContext, InputDefinition
+from dagster import HookContext
 from dagster.config import ConfigType as DagsterConfigType
 
 from typing import Callable, Literal, Protocol, TypedDict, Union
@@ -24,17 +24,19 @@ DagsterConfigDict = dict[
     ]
 ]
 
-# dict representing how a solid can be configured
+# dict representing how an op can be configured
 DagsterObjectConfigSchema = dict[str, DagsterConfigType]
 
 DagsterHookFunction = Callable[[HookContext], None]
 
 
-# a partial delineation of the config for a Dagster solid.
-class DagsterSolidConfig(TypedDict, total=False):
-    required_resource_keys: set[str]
-    input_defs: list[InputDefinition]
-    config_schema: DagsterObjectConfigSchema
+# TODO clean this up and remove the commented out code
+#  - this class is not used in dagster-utils or in hca-ingest
+# a partial delineation of the config for a Dagster op.
+# class DagsterOpConfig(TypedDict, total=False):
+#     required_resource_keys: set[str]
+#     input_defs: list[In]
+#     config_schema: DagsterObjectConfigSchema
 
 
 # a package whose location on the filesystem is fetchable
